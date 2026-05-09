@@ -1,12 +1,17 @@
 import "server-only";
 import { Resend } from "resend";
 
-const key = process.env.RESEND_API_KEY;
-if (!key) {
-  throw new Error("RESEND_API_KEY is not set");
-}
+let client: Resend | null = null;
 
-export const resend = new Resend(key);
+export function getResend(): Resend {
+  if (client) return client;
+  const key = process.env.RESEND_API_KEY;
+  if (!key) {
+    throw new Error("RESEND_API_KEY is not set");
+  }
+  client = new Resend(key);
+  return client;
+}
 
 export const SALE_FROM_EMAIL = "Congress of Beauty <sales@cob-studio.com>";
 

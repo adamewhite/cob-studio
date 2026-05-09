@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { stripe } from "../../lib/stripe";
+import { getStripe } from "../../lib/stripe";
 import { getArtwork } from "../../lib/artwork";
 
 export async function POST(request: NextRequest) {
@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
     });
   }
 
-  const session = await stripe.checkout.sessions.create({
+  const session = await getStripe().checkout.sessions.create({
     mode: "payment",
     line_items: lineItems,
     shipping_address_collection: { allowed_countries: ["US"] },

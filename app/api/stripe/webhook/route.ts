@@ -1,8 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
 import type Stripe from "stripe";
-import { stripe } from "../../../lib/stripe";
+import { getStripe } from "../../../lib/stripe";
 import {
-  resend,
+  getResend,
   SALE_FROM_EMAIL,
   getSaleNotificationEmail,
 } from "../../../lib/resend";
@@ -24,6 +24,8 @@ export async function POST(request: NextRequest) {
   }
 
   const rawBody = await request.text();
+
+  const stripe = getStripe();
 
   let event: Stripe.Event;
   try {
@@ -111,7 +113,7 @@ Mark these slugs as sold:true in app/lib/artwork.ts and redeploy.`;
 
     const slugList = items.map((i) => i.slug).filter(Boolean).join(", ");
 
-    await resend.emails.send({
+    await getResend().emails.send({
       from: SALE_FROM_EMAIL,
       to: getSaleNotificationEmail(),
       subject: `Sale: ${slugList || session.id}`,
