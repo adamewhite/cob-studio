@@ -22,7 +22,21 @@ export const metadata: Metadata = {
   },
   description:
     "The studio of John Orth. Original paintings, drawings, and cast sculpture.",
-  metadataBase: new URL("https://cob-studio.com"),
+  metadataBase: new URL("https://www.cob-studio.com"),
+  openGraph: {
+    type: "website",
+    siteName: "Congress of Beauty",
+    title: "Congress of Beauty — John Orth",
+    description:
+      "The studio of John Orth. Original paintings, drawings, and cast sculpture.",
+    url: "https://www.cob-studio.com",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Congress of Beauty — John Orth",
+    description:
+      "The studio of John Orth. Original paintings, drawings, and cast sculpture.",
+  },
 };
 
 export default function RootLayout({
