@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { AddToCartButton } from "../../../components/AddToCartButton";
 import { Carousel } from "../../../components/Carousel";
 import {
   artworks,
@@ -82,14 +83,7 @@ export default async function ArtworkDetail({
             )}
           </div>
 
-          {!a.sold && (
-            <button
-              type="button"
-              className="mt-6 w-full bg-black px-6 py-3.5 text-base text-white hover:bg-black/80 sm:w-auto"
-            >
-              Add to cart
-            </button>
-          )}
+          {!a.sold && <AddToCartButton artwork={a} />}
 
           {a.description && (
             <p className="mt-10 max-w-md text-base leading-relaxed text-black/70">

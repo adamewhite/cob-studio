@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { categories, seriesList } from "../lib/artwork";
+import { CartTrigger } from "./CartTrigger";
 
 export function Nav() {
   return (
@@ -62,9 +63,7 @@ export function Nav() {
           <Link href="/about" className="hover:opacity-60">
             About
           </Link>
-          <Link href="/cart" className="hover:opacity-60">
-            Cart
-          </Link>
+          <CartTrigger />
         </nav>
       </div>
     </header>
