@@ -139,7 +139,7 @@ export function CartDrawer() {
             className="-mx-8 mb-6 px-8 py-2 text-center text-xs tracking-wide text-white"
             style={{ backgroundColor: "rgb(42, 65, 42)" }}
           >
-            FREE shipping and FREE returns on U.S. orders.
+            FREE shipping on U.S. orders.
           </div>
 
           <div className="flex items-baseline justify-between">
