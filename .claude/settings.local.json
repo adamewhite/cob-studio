@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.whatsupton.com)",
+      "Bash(npm run *)",
+      "Read(//tmp/**)",
+      "Bash(pkill -f \"next dev\")",
+      "Bash(sips -g pixelWidth -g pixelHeight -g format \"Botanical Painting - 01 - Full.jpg\")",
+      "WebSearch",
+      "WebFetch(domain:affinity.help)",
+      "WebFetch(domain:forum.affinity.serif.com)",
+      "WebFetch(domain:shortcuts.design)",
+      "WebFetch(domain:usethekeyboard.com)",
+      "WebFetch(domain:edits101.com)",
+      "WebFetch(domain:resources.serif.com)",
+      "WebFetch(domain:www.pie-menu.com)",
+      "Bash(curl -sI \"http://localhost:3001/images/artwork/botanical/Botanical%20Painting%20-%2001%20-%20Full.jpg\")",
+      "Bash(curl -sI \"http://localhost:3001/images/artwork/botanical/Botanical%20Painting%20-%2012%20-%20Framed.jpg\")",
+      "Bash(curl -sI \"http://localhost:3001/images/artwork/botanical/Botanical%20Painting%20-%2007%20-%20Detail.jpg\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3001/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3001/artwork/series/botanical)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3001/artwork/paintings/botanical-no-1)",
+      "Bash(curl -s -o /dev/null -w \"page:%{http_code}\\\\n\" http://localhost:3001/about)",
+      "Bash(curl -sI http://localhost:3001/images/about_me.jpg)",
+      "Bash(curl -s -o /dev/null -w \"home:%{http_code}\\\\n\" http://localhost:3001/)",
+      "Bash(curl -sI http://localhost:3001/images/hero_image.jpg)",
+      "Bash(sips -g pixelWidth -g pixelHeight /Users/adamwhite/Desktop/cob-studio/public/images/hero_image.jpg)",
+      "Bash(curl -s -o /dev/null -w \"drawings:%{http_code}\\\\n\" http://localhost:3001/artwork/drawings)",
+      "Bash(curl -s -o /dev/null -w \"detail:%{http_code}\\\\n\" http://localhost:3001/artwork/drawings/drawing-no-1)",
+      "Bash(curl -sI http://localhost:3001/images/artwork/drawings/13_orth_drawing_1.jpg)",
+      "Bash(curl -sI http://localhost:3001/images/artwork/drawings/20_orth_drawing_8.jpg)",
+      "Bash(git -C /Users/adamwhite/Desktop/cob-studio status)",
+      "Bash(git -C /Users/adamwhite/Desktop/cob-studio remote -v)",
+      "Bash(git -C /Users/adamwhite/Desktop/cob-studio mv public/images/COB.svg public/images/cob.svg)",
+      "Bash(git -C /Users/adamwhite/Desktop/cob-studio status --short)",
+      "Bash(git add *)"
+    ]
+  }
+}
