@@ -2,12 +2,36 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "./CartContext";
 import { formatPrice } from "../lib/artwork";
 
 export function CartDrawer() {
   const { items, isOpen, closeCart, remove, subtotal } = useCart();
+  const [checkingOut, setCheckingOut] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function handleCheckout() {
+    setCheckingOut(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ slugs: items.map((i) => i.slug) }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.url) {
+        setError(data.error ?? "Checkout failed. Please try again.");
+        setCheckingOut(false);
+        return;
+      }
+      window.location.href = data.url;
+    } catch {
+      setError("Network error. Please try again.");
+      setCheckingOut(false);
+    }
+  }
 
   useEffect(() => {
     if (!isOpen) return;
@@ -152,18 +176,19 @@ export function CartDrawer() {
             Taxes, discounts and shipping calculated at checkout.
           </p>
 
+          {error && (
+            <p className="mt-4 text-sm text-red-700" role="alert">
+              {error}
+            </p>
+          )}
+
           <button
             type="button"
-            disabled={items.length === 0}
-            onClick={() => {
-              // Stripe Checkout wiring lands in phase 2.
-              alert(
-                "Checkout coming soon — Stripe wiring is the next step.",
-              );
-            }}
+            disabled={items.length === 0 || checkingOut}
+            onClick={handleCheckout}
             className="mt-6 w-full bg-black px-6 py-4 text-base text-white transition hover:bg-black/80 disabled:cursor-not-allowed disabled:bg-black/30"
           >
-            Check out
+            {checkingOut ? "Redirecting…" : "Check out"}
           </button>
         </div>
       </aside>

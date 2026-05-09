@@ -22,6 +22,7 @@ export type CartItem = {
 type CartContextValue = {
   items: CartItem[];
   isOpen: boolean;
+  hydrated: boolean;
   add: (artwork: Artwork) => void;
   remove: (slug: string) => void;
   clear: () => void;
@@ -79,7 +80,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setItems((prev) => prev.filter((i) => i.slug !== slug));
   }, []);
 
-  const clear = useCallback(() => setItems([]), []);
+  const clear = useCallback(() => {
+    setItems([]);
+    try {
+      window.localStorage.removeItem(STORAGE_KEY);
+    } catch {
+      // ignore
+    }
+  }, []);
   const openCart = useCallback(() => setIsOpen(true), []);
   const closeCart = useCallback(() => setIsOpen(false), []);
 
@@ -92,6 +100,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     () => ({
       items,
       isOpen,
+      hydrated,
       add,
       remove,
       clear,
@@ -99,7 +108,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       closeCart,
       subtotal,
     }),
-    [items, isOpen, add, remove, clear, openCart, closeCart, subtotal],
+    [items, isOpen, hydrated, add, remove, clear, openCart, closeCart, subtotal],
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
