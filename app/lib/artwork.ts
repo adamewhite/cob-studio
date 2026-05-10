@@ -65,7 +65,7 @@ const botanicals: Artwork[] = Array.from({ length: 12 }, (_, i) => {
     dimensions: '11" × 17"',
     framedDimensions: '12" × 18"',
     year: 2025,
-    price: 325,
+    price: 0.5, // TEMP test price — restore to 325 before launch
     images: [
       { src: file('Framed'), alt: `Botanical No. ${n}, framed` },
       { src: file('Full'), alt: `Botanical No. ${n}, full view` },
@@ -84,7 +84,7 @@ const drawings: Artwork[] = Array.from({ length: 8 }, (_, i) => {
     medium: 'Graphite on paper, framed',
     dimensions: '11" × 14"',
     year: 2025,
-    price: 1400,
+    price: 0.5, // TEMP test price — restore to 225 before launch
     images: [
       {
         src: `/images/artwork/drawings/${fileIndex}_orth_drawing_${n}.jpg`,
@@ -102,7 +102,7 @@ const placeholders: Artwork[] = [
     medium: 'Cast resin, hand-finished',
     dimensions: '8" wide × 4" tall',
     year: 2025,
-    price: 950,
+    price: 0.5, // TEMP test price — restore to 275 before launch
     gradient: 'from-yellow-100 via-orange-200 to-red-300',
   },
   {
@@ -112,7 +112,7 @@ const placeholders: Artwork[] = [
     medium: 'Cast bronze, patinated',
     dimensions: '8" wide × 4" tall',
     year: 2025,
-    price: 1850,
+    price: 0.5, // TEMP test price — restore to 275 before launch
     gradient: 'from-lime-100 via-green-200 to-emerald-300',
   },
   {
@@ -122,7 +122,7 @@ const placeholders: Artwork[] = [
     medium: 'Cast resin, hand-finished',
     dimensions: '8" wide × 4" tall',
     year: 2025,
-    price: 950,
+    price: 0.5, // TEMP test price — restore to 275 before launch
     gradient: 'from-cyan-100 via-blue-200 to-indigo-300',
   },
 ];
