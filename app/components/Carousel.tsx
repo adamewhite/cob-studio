@@ -10,8 +10,9 @@ export function Carousel({ images }: { images: ArtworkImage[] }) {
   if (images.length === 0) return null;
 
   const current = images[index];
-  const canPrev = index > 0;
-  const canNext = index < images.length - 1;
+  const count = images.length;
+  const goPrev = () => setIndex((i) => (i - 1 + count) % count);
+  const goNext = () => setIndex((i) => (i + 1) % count);
 
   return (
     <div>
@@ -31,18 +32,16 @@ export function Carousel({ images }: { images: ArtworkImage[] }) {
             <button
               type="button"
               aria-label="Previous image"
-              onClick={() => canPrev && setIndex(index - 1)}
-              disabled={!canPrev}
-              className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 px-3 py-2 text-base backdrop-blur hover:bg-white disabled:opacity-30"
+              onClick={goPrev}
+              className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 px-3 py-2 text-base backdrop-blur hover:bg-white"
             >
               ←
             </button>
             <button
               type="button"
               aria-label="Next image"
-              onClick={() => canNext && setIndex(index + 1)}
-              disabled={!canNext}
-              className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 px-3 py-2 text-base backdrop-blur hover:bg-white disabled:opacity-30"
+              onClick={goNext}
+              className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 px-3 py-2 text-base backdrop-blur hover:bg-white"
             >
               →
             </button>
