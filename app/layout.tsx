@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import { Instrument_Sans, Proza_Libre } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 import { CartDrawer } from './components/CartDrawer';
 import { CartProvider } from './components/CartContext';
@@ -65,6 +67,8 @@ export default function RootLayout({
           <Footer />
           <CartDrawer />
         </CartProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
