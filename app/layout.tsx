@@ -48,9 +48,9 @@ export default function RootLayout({
   return (
     <html
       lang='en'
-      className={`${instrumentSans.variable} ${prozaLibre.variable} h-full antialiased`}
+      className={`${instrumentSans.variable} ${prozaLibre.variable} antialiased`}
     >
-      <body className='flex min-h-full flex-col text-black'>
+      <body className='flex min-h-dvh flex-col text-black'>
         <CartProvider>
           <div
             role='region'
