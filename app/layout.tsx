@@ -21,21 +21,21 @@ const prozaLibre = Proza_Libre({
 
 export const metadata: Metadata = {
   title: {
-    default: 'COB STUDIO',
+    default: 'Congress of Beauty',
     template: '%s · Congress of Beauty',
   },
   description: 'Original paintings, drawings, and cast sculpture.',
   metadataBase: new URL('https://www.cob-studio.com'),
   openGraph: {
     type: 'website',
-    siteName: 'COB STUDIO',
-    title: 'COB STUDIO',
+    siteName: 'Congress of Beauty',
+    title: 'Congress of Beauty',
     description: 'Original paintings, drawings, and cast sculpture.',
     url: 'https://www.cob-studio.com',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'COB STUDIO',
+    title: 'Congress of Beauty',
     description: 'Original paintings, drawings, and cast sculpture.',
   },
 };

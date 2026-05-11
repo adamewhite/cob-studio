@@ -18,6 +18,7 @@ Where things stand and what's left to ship real sales. Stop point: live deploy a
 - ✅ Maine sales tax registration submitted (2026-05-11, confirmation `0-003-866-562`) — awaiting issuance
 - ✅ Cloudflare Email Routing live: `hello@` and `sales@cob-studio.com` forward to evilofbanality@gmail.com
 - ✅ `/contact` page (email-only, points at hello@cob-studio.com)
+- ✅ Gmail "Send mail as" configured for both `hello@` and `sales@` via Resend SMTP — full email loop closed
 
 ## Blocking real sales
 
@@ -41,38 +42,19 @@ At https://dashboard.stripe.com/settings/public, set:
 
 ## Polish before "launching"
 
-### 3. /contact page
-Last footer 404. Needs a simple page with how to reach the studio (email at minimum; optionally a short form). File: create `app/contact/page.tsx`.
-
-### 4. /checkout/cancel page
+### 3. /checkout/cancel page
 Currently `cancel_url` in the checkout API points to `/`. A friendlier "cart preserved, come back when ready" page would read better. Optional. File: `app/api/checkout/route.ts`.
 
-### 5. Sold-state visual check
+### 4. Sold-state visual check
 Flip one artwork to `sold: true` in `app/lib/artwork.ts` and view it locally to confirm:
 - Listing page shows the piece is sold
 - Detail page hides Add to Cart, shows "Sold"
 - /api/checkout refuses to create a session for it (already coded server-side)
 
-### 6. Test newsletter in production
+### 5. Test newsletter in production
 Now that the form is live and `RESEND_SEGMENT_ID` is set in Vercel, submit a real signup on cob-studio.com and confirm it lands in Resend → Audience → Contacts (segment: General). Also delete the `test@test.com` contact left over from local testing.
 
-### 7. Reply *from* sales@ / hello@ via Gmail "Send mail as"
-Inbound forwarding is done (Cloudflare Email Routing → evilofbanality@gmail.com). What's left: configure Gmail so when you Reply to a forwarded message, it goes out *from* `sales@cob-studio.com` (or `hello@`) instead of your personal Gmail. Without this, customers see your personal Gmail in replies.
-
-Steps:
-1. **Gmail → Settings → Accounts and Import → "Send mail as" → Add another email address.**
-2. Use Resend's SMTP for outbound:
-   - SMTP server: `smtp.resend.com`
-   - Port: `465` (SSL) or `587` (TLS)
-   - Username: `resend`
-   - Password: a new Resend API key (SMTP scope is enough; doesn't need full access)
-3. Gmail sends a verification code to the alias → Cloudflare forwards it back to your Gmail → paste in.
-4. Repeat for `hello@cob-studio.com`.
-5. In Gmail accounts settings, set **"Reply from the same address the message was sent to"** so replies to order emails go from `sales@` automatically.
-
-Result: customers see all mail coming from `sales@` / `hello@cob-studio.com` (both order confirmations and your replies); you manage everything from one Gmail inbox.
-
-### 8. Get the site indexed on Google and Bing
+### 6. Get the site indexed on Google and Bing
 Currently neither search engine can index cob-studio.com because there's no sitemap or robots.txt published and no Search Console verification.
 
 **a. Generate sitemap + robots (prereq)**

@@ -83,7 +83,7 @@ export async function POST(request: NextRequest) {
     // TODO: re-enable once NY Certificate of Authority is registered.
     automatic_tax: { enabled: false },
     success_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${origin}/`,
+    cancel_url: `${origin}/checkout/cancel`,
   });
 
   if (!session.url) {
