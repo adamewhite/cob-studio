@@ -22,9 +22,23 @@ export async function generateMetadata({
   const { slug } = await params;
   const a = getArtwork(slug);
   if (!a) return {};
+  const description = `${a.title} — ${a.medium}, ${a.dimensions}.`;
+  const cover = a.images?.[0];
+  const images = cover ? [{ url: cover.src, alt: cover.alt }] : undefined;
   return {
     title: a.title,
-    description: `${a.title} — ${a.medium}, ${a.dimensions}.`,
+    description,
+    openGraph: {
+      title: a.title,
+      description,
+      images,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: a.title,
+      description,
+      images,
+    },
   };
 }
 

@@ -9,6 +9,13 @@ import {
 
 export const runtime = "nodejs";
 
+// In-memory dedupe for Stripe webhook retries. Fluid Compute reuses instances
+// across requests, so this catches the common burst-retry case at zero cost.
+// A cold start can re-fire an email, but that's far better than the previous
+// behavior where any Resend error caused unbounded retries.
+const processedEventIds = new Set<string>();
+const PROCESSED_LIMIT = 500;
+
 export async function POST(request: NextRequest) {
   const secret = process.env.STRIPE_WEBHOOK_SECRET;
   if (!secret) {
@@ -36,6 +43,10 @@ export async function POST(request: NextRequest) {
       { error: `Invalid signature: ${message}` },
       { status: 400 },
     );
+  }
+
+  if (processedEventIds.has(event.id)) {
+    return NextResponse.json({ received: true, deduped: true });
   }
 
   if (event.type === "checkout.session.completed") {
@@ -113,12 +124,29 @@ Mark these slugs as sold:true in app/lib/artwork.ts and redeploy.`;
 
     const slugList = items.map((i) => i.slug).filter(Boolean).join(", ");
 
-    await getResend().emails.send({
-      from: SALE_FROM_EMAIL,
-      to: getSaleNotificationEmail(),
-      subject: `Sale: ${slugList || session.id}`,
-      text,
-    });
+    try {
+      await getResend().emails.send({
+        from: SALE_FROM_EMAIL,
+        to: getSaleNotificationEmail(),
+        subject: `Sale: ${slugList || session.id}`,
+        text,
+      });
+    } catch (err) {
+      // Never return 500 just because the notification email failed: the
+      // payment already succeeded, and a 500 here causes Stripe to retry,
+      // which would silently duplicate emails once Resend recovers.
+      console.error("Sale notification email failed", {
+        sessionId: session.id,
+        slugList,
+        error: err instanceof Error ? err.message : err,
+      });
+    }
+  }
+
+  processedEventIds.add(event.id);
+  if (processedEventIds.size > PROCESSED_LIMIT) {
+    const oldest = processedEventIds.values().next().value;
+    if (oldest) processedEventIds.delete(oldest);
   }
 
   return NextResponse.json({ received: true });
