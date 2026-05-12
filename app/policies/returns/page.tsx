@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export const metadata = {
   title: 'Returns',
   description:
@@ -59,8 +61,11 @@ export default function Returns() {
       </p>
 
       <p className='mt-12 text-black/70'>
-        Questions about a return? Get in touch — we&apos;re happy to
-        help.
+        Questions about a return?{' '}
+        <Link href='/contact' className='underline hover:text-black'>
+          Get in touch
+        </Link>{' '}
+        — we&apos;re happy to help.
       </p>
     </div>
   );
