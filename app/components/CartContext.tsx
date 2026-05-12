@@ -8,7 +8,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import type { Artwork } from "../lib/artwork";
+import { getArtwork, type Artwork } from "../lib/artwork";
 
 export type CartItem = {
   slug: string;
@@ -44,7 +44,15 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       const raw = window.localStorage.getItem(STORAGE_KEY);
       if (raw) {
         const parsed = JSON.parse(raw) as CartItem[];
-        if (Array.isArray(parsed)) setItems(parsed);
+        if (Array.isArray(parsed)) {
+          // Drop items that no longer exist or have since sold, so a returning
+          // visitor doesn't hit a checkout error from a stale cart.
+          const live = parsed.filter((item) => {
+            const a = getArtwork(item.slug);
+            return a && !a.sold;
+          });
+          setItems(live);
+        }
       }
     } catch {
       // ignore malformed storage

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useCart } from "./CartContext";
 import { formatPrice } from "../lib/artwork";
 
@@ -10,6 +10,9 @@ export function CartDrawer() {
   const { items, isOpen, closeCart, remove, subtotal } = useCart();
   const [checkingOut, setCheckingOut] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const drawerRef = useRef<HTMLElement | null>(null);
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+  const openerRef = useRef<HTMLElement | null>(null);
 
   async function handleCheckout() {
     setCheckingOut(true);
@@ -35,8 +38,33 @@ export function CartDrawer() {
 
   useEffect(() => {
     if (!isOpen) return;
+
+    openerRef.current =
+      document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null;
+    closeButtonRef.current?.focus();
+
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") closeCart();
+      if (e.key === "Escape") {
+        closeCart();
+        return;
+      }
+      if (e.key !== "Tab" || !drawerRef.current) return;
+      const focusables = drawerRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      );
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+      if (e.shiftKey && active === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
+      }
     };
     window.addEventListener("keydown", onKey);
     const prev = document.body.style.overflow;
@@ -44,6 +72,7 @@ export function CartDrawer() {
     return () => {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = prev;
+      openerRef.current?.focus();
     };
   }, [isOpen, closeCart]);
 
@@ -57,7 +86,9 @@ export function CartDrawer() {
         }`}
       />
       <aside
+        ref={drawerRef}
         role="dialog"
+        aria-modal={isOpen ? true : undefined}
         aria-label="Shopping cart"
         aria-hidden={!isOpen}
         className={`fixed right-0 top-0 z-50 flex h-full w-full max-w-md flex-col bg-[#fcfbfa] shadow-xl transition-transform duration-300 ${
@@ -69,6 +100,7 @@ export function CartDrawer() {
             {items.length === 0 ? "Your cart is empty" : "Your cart"}
           </h2>
           <button
+            ref={closeButtonRef}
             type="button"
             onClick={closeCart}
             aria-label="Close cart"

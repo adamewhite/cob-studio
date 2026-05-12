@@ -9,6 +9,6 @@ export function getStripe(): Stripe {
   if (!key) {
     throw new Error("STRIPE_SECRET_KEY is not set");
   }
-  client = new Stripe(key);
+  client = new Stripe(key, { apiVersion: "2026-04-22.dahlia" });
   return client;
 }
