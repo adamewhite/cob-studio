@@ -19,6 +19,8 @@ Where things stand and what's left to ship real sales. Stop point: live deploy a
 - ✅ Cloudflare Email Routing live: `hello@` and `sales@cob-studio.com` forward to evilofbanality@gmail.com
 - ✅ `/contact` page (email-only, points at hello@cob-studio.com)
 - ✅ Gmail "Send mail as" configured for both `hello@` and `sales@` via Resend SMTP — full email loop closed
+- ✅ `/checkout/cancel` page (reassures buyer, preserves cart, offers reopen-cart button)
+- ✅ Sold-state visual check (Mushroom Cast No. 1 flipped, listing + detail render correctly, reverted)
 
 ## Blocking real sales
 
@@ -42,19 +44,10 @@ At https://dashboard.stripe.com/settings/public, set:
 
 ## Polish before "launching"
 
-### 3. /checkout/cancel page
-Currently `cancel_url` in the checkout API points to `/`. A friendlier "cart preserved, come back when ready" page would read better. Optional. File: `app/api/checkout/route.ts`.
-
-### 4. Sold-state visual check
-Flip one artwork to `sold: true` in `app/lib/artwork.ts` and view it locally to confirm:
-- Listing page shows the piece is sold
-- Detail page hides Add to Cart, shows "Sold"
-- /api/checkout refuses to create a session for it (already coded server-side)
-
-### 5. Test newsletter in production
+### 3. Test newsletter in production
 Now that the form is live and `RESEND_SEGMENT_ID` is set in Vercel, submit a real signup on cob-studio.com and confirm it lands in Resend → Audience → Contacts (segment: General). Also delete the `test@test.com` contact left over from local testing.
 
-### 6. Get the site indexed on Google and Bing
+### 4. Get the site indexed on Google and Bing
 Currently neither search engine can index cob-studio.com because there's no sitemap or robots.txt published and no Search Console verification.
 
 **a. Generate sitemap + robots (prereq)**
