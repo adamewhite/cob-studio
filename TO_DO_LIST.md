@@ -21,6 +21,7 @@ Where things stand and what's left to ship real sales. Stop point: live deploy a
 - ✅ Gmail "Send mail as" configured for both `hello@` and `sales@` via Resend SMTP — full email loop closed
 - ✅ `/checkout/cancel` page (reassures buyer, preserves cart, offers reopen-cart button)
 - ✅ Sold-state visual check (Mushroom Cast No. 1 flipped, listing + detail render correctly, reverted)
+- ✅ `sitemap.xml` + `robots.txt` live; Google Search Console verified (DNS TXT on cob-studio.com) and sitemap submitted; Bing Webmaster Tools imported from GSC
 
 ## Blocking real sales
 
@@ -47,25 +48,12 @@ At https://dashboard.stripe.com/settings/public, set:
 ### 3. Test newsletter in production
 Now that the form is live and `RESEND_SEGMENT_ID` is set in Vercel, submit a real signup on cob-studio.com and confirm it lands in Resend → Audience → Contacts (segment: General). Also delete the `test@test.com` contact left over from local testing.
 
-### 4. Get the site indexed on Google and Bing
-Currently neither search engine can index cob-studio.com because there's no sitemap or robots.txt published and no Search Console verification.
+### 4. Search indexing — optional follow-ups
+GSC + Bing are set up; sitemap submitted to both. Indexing typically takes 1–4 weeks for full coverage. Check back in GSC → Pages to see what's indexed.
 
-**a. Generate sitemap + robots (prereq)**
-Next.js App Router conventions:
-- `app/sitemap.ts` — exports a function that returns all artwork detail URLs, category/series pages, and policy pages.
-- `app/robots.ts` — points crawlers at the sitemap and allows everything except `/api/*` and `/checkout/*`.
-
-**b. Google Search Console**
-- https://search.google.com/search-console → Add property → URL prefix → `https://www.cob-studio.com`.
-- Verify ownership via DNS TXT record (preferred over HTML meta — survives redeploys).
-- Once verified: Sitemaps → submit `https://www.cob-studio.com/sitemap.xml`.
-
-**c. Bing Webmaster Tools**
-- https://www.bing.com/webmasters → Add site.
-- Easiest: "Import from Google Search Console" — pulls the verification across automatically.
-- Otherwise verify via DNS or HTML tag, then submit the same sitemap URL.
-
-**d. Optional after the above:** Google Business Profile (only if you want a map/knowledge-panel listing — skip for studios that don't take visitors). Google Merchant Center / Bing Shopping (only if you plan to run paid Shopping ads).
+**Only if relevant later:**
+- Google Business Profile — only if you want a map/knowledge-panel listing. Skip for studios that don't take visitors.
+- Google Merchant Center / Bing Shopping — only if you plan to run paid Shopping ads.
 
 ## Operational workflow when a real sale comes in
 
