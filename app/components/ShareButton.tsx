@@ -86,7 +86,7 @@ export function ShareButton({
   ];
 
   return (
-    <div ref={containerRef} className="relative inline-block">
+    <div ref={containerRef} className="relative w-full sm:w-auto sm:inline-block">
       <button
         type="button"
         onClick={handleShare}
@@ -94,7 +94,7 @@ export function ShareButton({
         aria-expanded={open}
         aria-controls={open ? menuId : undefined}
         aria-label={`Share ${artwork.title}`}
-        className="w-full bg-black px-6 py-3.5 text-base text-white transition hover:bg-black/80 sm:w-auto"
+        className="w-full border border-black/20 px-6 py-3.5 text-base transition hover:border-black sm:w-auto"
       >
         Share
       </button>

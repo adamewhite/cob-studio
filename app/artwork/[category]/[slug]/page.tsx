@@ -98,7 +98,7 @@ export default async function ArtworkDetail({
             )}
           </div>
 
-          <div className="mt-6 flex flex-wrap items-start gap-3">
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-start">
             {!a.sold && <AddToCartButton artwork={a} />}
             <ShareButton artwork={a} category={a.category} />
           </div>
