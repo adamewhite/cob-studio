@@ -1,7 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { artworks, categories, seriesList } from './lib/artwork';
-
-const BASE_URL = 'https://www.cob-studio.com';
+import { SITE_ORIGIN as BASE_URL } from './lib/site';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

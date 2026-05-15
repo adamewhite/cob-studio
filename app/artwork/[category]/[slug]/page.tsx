@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AddToCartButton } from "../../../components/AddToCartButton";
 import { Carousel } from "../../../components/Carousel";
+import { ShareButton } from "../../../components/ShareButton";
 import {
   artworks,
   categories,
@@ -97,7 +98,10 @@ export default async function ArtworkDetail({
             )}
           </div>
 
-          {!a.sold && <AddToCartButton artwork={a} />}
+          <div className="mt-6 flex flex-wrap items-start gap-3">
+            {!a.sold && <AddToCartButton artwork={a} />}
+            <ShareButton artwork={a} category={a.category} />
+          </div>
 
           {a.description && (
             <p className="mt-10 max-w-md text-base leading-relaxed text-black/70">

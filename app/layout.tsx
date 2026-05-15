@@ -7,6 +7,7 @@ import { CartDrawer } from './components/CartDrawer';
 import { CartProvider } from './components/CartContext';
 import { Nav } from './components/Nav';
 import { Footer } from './components/Footer';
+import { SITE_ORIGIN } from './lib/site';
 
 const instrumentSans = Instrument_Sans({
   variable: '--font-sans',
@@ -25,13 +26,13 @@ export const metadata: Metadata = {
     template: '%s · Congress of Beauty',
   },
   description: 'Original paintings, drawings, and cast sculpture.',
-  metadataBase: new URL('https://www.cob-studio.com'),
+  metadataBase: new URL(SITE_ORIGIN),
   openGraph: {
     type: 'website',
     siteName: 'Congress of Beauty',
     title: 'Congress of Beauty',
     description: 'Original paintings, drawings, and cast sculpture.',
-    url: 'https://www.cob-studio.com',
+    url: SITE_ORIGIN,
   },
   twitter: {
     card: 'summary_large_image',
