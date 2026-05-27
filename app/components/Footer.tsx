@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { NewsletterForm } from './NewsletterForm';
 
@@ -6,9 +7,13 @@ export function Footer() {
     <footer className='mt-32 border-t border-black/10'>
       <div className='mx-auto grid max-w-7xl gap-12 px-6 py-16 sm:grid-cols-2 md:grid-cols-4'>
         <div>
-          <div className='text-base font-medium tracking-tight'>
-            Congress of Beauty
-          </div>
+          <Image
+            src='/images/logo.png'
+            alt='Congress of Beauty'
+            width={608}
+            height={767}
+            className='h-[7.2rem] w-auto'
+          />
           <p className='mt-3 max-w-xs text-base text-black/60'>
             An art studio from Maine.
           </p>
