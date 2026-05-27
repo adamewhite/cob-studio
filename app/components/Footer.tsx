@@ -11,7 +11,7 @@ export function Footer() {
             src='/images/logo.png'
             alt='Congress of Beauty'
             width={608}
-            height={767}
+            height={762}
             className='h-[7.2rem] w-auto'
           />
           <p className='mt-3 max-w-xs text-base text-black/60'>

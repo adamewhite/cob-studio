@@ -63,7 +63,7 @@ export function Nav() {
               src='/images/logo.png'
               alt='Congress of Beauty'
               width={608}
-              height={767}
+              height={762}
               priority
               className='h-24 w-auto sm:h-[7.2rem]'
             />
