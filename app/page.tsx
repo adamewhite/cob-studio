@@ -96,7 +96,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className='mx-auto max-w-7xl px-6 py-16'>
+      <section className='mx-auto max-w-7xl px-6 pt-8 pb-12 sm:py-16'>
         <h2 className='mb-8 text-2xl font-medium tracking-tight'>
           Browse by collection
         </h2>
