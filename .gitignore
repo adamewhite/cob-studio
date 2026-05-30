@@ -24,6 +24,9 @@
 .DS_Store
 *.pem
 
+# video sources (web-encoded .mp4/.webm are committed; keep raw sources local)
+/public/videos/*.mov
+
 # debug
 npm-debug.log*
 yarn-debug.log*

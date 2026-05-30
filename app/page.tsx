@@ -15,41 +15,56 @@ export default function Home() {
 
   return (
     <div>
-      <section className='mx-auto max-w-7xl px-6 pt-16 pb-24 sm:pt-24'>
-        <div className='grid gap-10 md:grid-cols-2 md:items-center'>
-          <div>
-            <h1 className='text-balance text-4xl font-medium leading-tight tracking-tight sm:text-5xl'>
-              Live with beauty every day.
-            </h1>
-            <p className='mt-6 max-w-md text-balance text-black/60'>
-              Original work from Congress of Beauty — paintings, drawings, and
-              cast sculpture, made by hand.
-            </p>
-            <div className='mt-8 flex gap-3'>
-              <Link
-                href='/artwork'
-                className='bg-black px-6 py-3.5 text-base text-white hover:bg-black/80'
-              >
-                Shop the studio
-              </Link>
-              <Link
-                href='/about'
-                className='border border-black/20 px-6 py-3.5 text-base hover:bg-black/5'
-              >
-                About the work
-              </Link>
+      <section className='relative w-full pt-0 sm:pt-[4.4rem]'>
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster='/images/hero_image.jpg'
+          aria-label='Congress of Beauty studio'
+          className='h-[70vh] w-full object-cover sm:h-[80vh]'
+        >
+          <source
+            src='/videos/hero_video.webm'
+            type='video/webm'
+          />
+          <source
+            src='/videos/hero_video.mp4'
+            type='video/mp4'
+          />
+        </video>
+        <div className='absolute inset-x-0 bottom-0 top-0 flex items-center px-6 sm:top-[4.4rem] sm:px-10'>
+          <div className='mx-auto w-full max-w-7xl'>
+            <div
+              style={{
+                background:
+                  'linear-gradient(180deg, #fcfbfa 0%, #f6f3f0 100%)',
+              }}
+              className='max-w-md p-8 shadow-xl shadow-black/10 sm:p-10'
+            >
+              <h1 className='text-balance text-4xl font-medium leading-tight tracking-tight sm:text-5xl'>
+                Live with beauty every day.
+              </h1>
+              <p className='mt-6 max-w-md text-balance text-black/60'>
+                Original work from Congress of Beauty — paintings, drawings, and
+                cast sculpture, made by hand.
+              </p>
+              <div className='mt-8 flex flex-col gap-3 sm:flex-row'>
+                <Link
+                  href='/artwork'
+                  className='bg-black px-6 py-3.5 text-center text-base text-white hover:bg-black/80'
+                >
+                  Shop the studio
+                </Link>
+                <Link
+                  href='/about'
+                  className='border border-black/20 px-6 py-3.5 text-center text-base hover:bg-black/5'
+                >
+                  About the work
+                </Link>
+              </div>
             </div>
-          </div>
-          <div className='w-full'>
-            <Image
-              src='/images/hero_image.jpg'
-              alt='Congress of Beauty studio'
-              width={1200}
-              height={1600}
-              sizes='(min-width: 768px) 50vw, 100vw'
-              priority
-              className='h-auto w-full'
-            />
           </div>
         </div>
       </section>
