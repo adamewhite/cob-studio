@@ -106,7 +106,19 @@
       "Bash(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of default=noprint_wrappers=1 public/images/hero_poster.jpg)",
       "Bash(sips -g pixelWidth -g pixelHeight public/images/hero_poster.jpg)",
       "Bash(git rm *)",
-      "Bash(node -e ' *)"
+      "Bash(node -e ' *)",
+      "Bash(ffmpeg -y -i orth_hero_video.mov -an -vf setpts=2.0*PTS,__TRACKED_VAR__ -c:v libx264 -profile:v high -pix_fmt yuv420p -preset slow -crf 28 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv -movflags +faststart hero_video.mp4 -loglevel error)",
+      "Bash(ffmpeg -y -i orth_hero_video.mov -an -vf setpts=2.0*PTS,__TRACKED_VAR__ -c:v libvpx-vp9 -b:v 3000k -crf 30 -row-mt 1 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -pass 1 -f null /dev/null -loglevel error)",
+      "Bash(ffmpeg -y -i orth_hero_video.mov -an -vf setpts=2.0*PTS,__TRACKED_VAR__ -c:v libvpx-vp9 -b:v 3000k -crf 30 -row-mt 1 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -pass 2 hero_video.webm -loglevel error)",
+      "Bash(ffprobe -v error -select_streams v:0 -show_entries stream=width,height,nb_frames,duration,bit_rate -of default=noprint_wrappers=1 hero_video.webm)",
+      "Bash(ffmpeg -v error -i hero_video.webm -f null -)",
+      "Bash(ffprobe -v error -count_frames -select_streams v:0 -show_entries stream=nb_read_frames -of default=noprint_wrappers=1:nokey=1 hero_video.webm)",
+      "Bash(ffmpeg -y -i orth_hero_video.mov -an -vf setpts=2.0*PTS,__TRACKED_VAR__ -c:v libx264 -profile:v high -pix_fmt yuv420p -preset slow -crf 30 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv -movflags +faststart hero_video.mp4 -loglevel error)",
+      "Bash(ffmpeg -y -i orth_hero_video.mov -an -vf setpts=2.0*PTS,__TRACKED_VAR__ -c:v libvpx-vp9 -crf 24 -b:v 4000k -minrate 2000k -maxrate 6000k -quality good -deadline good -row-mt 1 -colorspace bt709 -color_primaries bt709 -color_trc bt709 hero_video.webm -loglevel error)",
+      "Bash(ffprobe -v error -show_entries format=bit_rate,duration -of default=noprint_wrappers=1 hero_video.mp4)",
+      "Bash(ffmpeg -y -i orth_hero_video.mov -an -vf setpts=2.0*PTS,__TRACKED_VAR__,fps=30 -c:v libvpx-vp9 -crf 26 -b:v 3000k -minrate 1500k -maxrate 4500k -quality good -deadline good -row-mt 1 -colorspace bt709 -color_primaries bt709 -color_trc bt709 hero_video_30.webm -loglevel error)",
+      "Bash(ffmpeg -y -t 8 -i orth_hero_video.mov -an -vf setpts=2.0*PTS,__TRACKED_VAR__ -c:v libvpx-vp9 -crf 24 -b:v 4000k -minrate 2000k -maxrate 6000k -quality good -deadline good -row-mt 1 -colorspace bt709 -color_primaries bt709 -color_trc bt709 hero_video.webm -loglevel error)",
+      "Bash(ffmpeg -y -t 8 -i orth_hero_video.mov -an -vf setpts=2.0*PTS,__TRACKED_VAR__ -c:v libx264 -profile:v high -pix_fmt yuv420p -preset slow -crf 25 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv -movflags +faststart hero_video.mp4 -loglevel error)"
     ]
   }
 }
