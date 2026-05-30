@@ -93,7 +93,19 @@
       "Bash(cp /tmp/shot.mjs ./_shot.mjs)",
       "Bash(PORT=3000 node ./_shot.mjs)",
       "Bash(NODE_PATH=/Users/adamwhite/.npm/_npx/e41f203b7505f1fb/node_modules PORT=3000 node --input-type=module -e ' *)",
-      "Bash(awk 'NR>1{print $5\"\\\\t\"$9}')"
+      "Bash(awk 'NR>1{print $5\"\\\\t\"$9}')",
+      "Bash(ffprobe -v error -select_streams v:0 -show_entries stream=codec_name,color_space,color_transfer,color_primaries,color_range,pix_fmt -of default=noprint_wrappers=1 orth_hero_video.mov)",
+      "Bash(ffprobe -v error -select_streams v:0 -show_frames -read_intervals \"%+#1\" -show_entries frame=side_data_list -of default=noprint_wrappers=1 orth_hero_video.mov)",
+      "Bash(ffprobe -v error -select_streams v:0 -show_entries stream=codec_name,color_space,color_transfer,color_primaries,color_range,pix_fmt -of default=noprint_wrappers=1 hero_video.mp4)",
+      "Bash(ffmpeg -hide_banner -filters)",
+      "Bash(ffmpeg -hide_banner -version)",
+      "Bash(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of default=noprint_wrappers=1 hero_video.mp4)",
+      "Bash(ffprobe -v error -select_streams v:0 -show_entries stream_side_data=rotation -of default=noprint_wrappers=1 hero_video.mp4)",
+      "Bash(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of default=noprint_wrappers=1 orth_hero_video.mov)",
+      "Bash(ffmpeg -y -i public/videos/hero_video.mp4 -frames:v 1 -q:v 3 public/images/hero_poster.jpg -loglevel error)",
+      "Bash(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of default=noprint_wrappers=1 public/images/hero_poster.jpg)",
+      "Bash(sips -g pixelWidth -g pixelHeight public/images/hero_poster.jpg)",
+      "Bash(git rm *)"
     ]
   }
 }

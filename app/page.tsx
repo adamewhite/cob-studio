@@ -21,7 +21,8 @@ export default function Home() {
           muted
           loop
           playsInline
-          poster='/images/hero_image.jpg'
+          preload='auto'
+          poster='/images/hero_poster.jpg'
           aria-label='Congress of Beauty studio'
           className='h-[70vh] w-full object-cover sm:h-[80vh]'
         >
@@ -34,14 +35,14 @@ export default function Home() {
             type='video/mp4'
           />
         </video>
-        <div className='absolute inset-x-0 bottom-0 top-0 flex items-center px-6 sm:top-[4.4rem] sm:px-10'>
-          <div className='mx-auto w-full max-w-7xl'>
+        <div className='absolute inset-x-0 bottom-0 top-0 flex items-center px-10 sm:top-[4.4rem] sm:px-10'>
+          <div className='mx-auto flex w-full max-w-7xl flex-col gap-4'>
             <div
               style={{
                 background:
                   'linear-gradient(180deg, #fcfbfa 0%, #f6f3f0 100%)',
               }}
-              className='max-w-md p-8 shadow-xl shadow-black/10 sm:p-10'
+              className='max-w-md p-5 shadow-xl shadow-black/10 sm:p-6'
             >
               <h1 className='text-balance text-4xl font-medium leading-tight tracking-tight sm:text-5xl'>
                 Live with beauty every day.
@@ -50,20 +51,26 @@ export default function Home() {
                 Original work from Congress of Beauty — paintings, drawings, and
                 cast sculpture, made by hand.
               </p>
-              <div className='mt-8 flex flex-col gap-3 sm:flex-row'>
-                <Link
-                  href='/artwork'
-                  className='bg-black px-6 py-3.5 text-center text-base text-white hover:bg-black/80'
-                >
-                  Shop the studio
-                </Link>
-                <Link
-                  href='/about'
-                  className='border border-black/20 px-6 py-3.5 text-center text-base hover:bg-black/5'
-                >
-                  About the work
-                </Link>
-              </div>
+            </div>
+            <div
+              style={{
+                background:
+                  'linear-gradient(180deg, #fcfbfa 0%, #f6f3f0 100%)',
+              }}
+              className='flex max-w-md flex-col gap-3 p-5 shadow-xl shadow-black/10 sm:flex-row sm:p-6'
+            >
+              <Link
+                href='/artwork'
+                className='bg-black px-6 py-3.5 text-center text-base text-white hover:bg-black/80'
+              >
+                Shop the studio
+              </Link>
+              <Link
+                href='/about'
+                className='border border-black/20 px-6 py-3.5 text-center text-base hover:bg-black/5'
+              >
+                About the work
+              </Link>
             </div>
           </div>
         </div>
