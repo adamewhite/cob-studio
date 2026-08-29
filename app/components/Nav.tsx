@@ -39,14 +39,14 @@ export function Nav() {
       <div
         className='absolute inset-x-0 top-0 h-32 origin-top border-b border-black/10 bg-[#fcfbfa]/70 backdrop-blur will-change-transform sm:h-[8.4rem]'
         style={{
-          transform: collapsed ? 'translateY(-4.4rem)' : 'translateY(0)',
+          transform: collapsed ? 'translateY(-2.375rem)' : 'translateY(0)',
           transition: 'transform 300ms cubic-bezier(0.4, 0, 0.2, 1)',
         }}
       >
         <div
           className='mx-auto flex h-full max-w-7xl items-center justify-between px-6 will-change-transform'
           style={{
-            transform: collapsed ? 'translateY(2.2rem)' : 'translateY(0)',
+            transform: collapsed ? 'translateY(1.19rem)' : 'translateY(0)',
             transition: 'transform 300ms cubic-bezier(0.4, 0, 0.2, 1)',
           }}
         >
@@ -55,7 +55,7 @@ export function Nav() {
             aria-label='Congress of Beauty — home'
             className='block origin-left will-change-transform'
             style={{
-              transform: collapsed ? 'scale(0.4375)' : 'scale(1)',
+              transform: collapsed ? 'scale(0.71875)' : 'scale(1)',
               transition: 'transform 300ms cubic-bezier(0.4, 0, 0.2, 1)',
             }}
           >
