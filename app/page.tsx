@@ -25,7 +25,7 @@ export default function Home() {
           preload="auto"
           poster="/images/hero_poster.jpg"
           aria-label="Congress of Beauty studio"
-          className="h-[70vh] w-full object-cover sm:h-[80vh]"
+          className="hero-video h-[70vh] w-full object-cover sm:h-[80vh]"
         >
           <source src="/videos/hero_video.mp4" type="video/mp4" />
           <source src="/videos/hero_video.webm" type="video/webm" />

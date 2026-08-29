@@ -28,3 +28,7 @@ h6,
 .font-display {
   font-family: var(--font-display), ui-serif, Georgia, serif;
 }
+
+.hero-video {
+  filter: saturate(1.25) brightness(0.9);
+}
