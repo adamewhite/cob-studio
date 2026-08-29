@@ -38,7 +38,7 @@ export default async function CategoryPage({
   const works = getArtworksByCategory(category as Category);
 
   return (
-    <div className="mx-auto max-w-7xl px-6 py-16">
+    <div className="mx-auto max-w-7xl px-6 pb-16 pt-10 sm:pt-28">
       <div className="mb-12 flex items-end justify-between gap-8">
         <div>
           <h1 className="text-3xl font-medium tracking-tight">{c.title}</h1>

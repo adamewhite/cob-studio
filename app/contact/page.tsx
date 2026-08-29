@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function Contact() {
   return (
-    <div className="mx-auto max-w-7xl px-6 py-20">
+    <div className="mx-auto max-w-7xl px-6 pb-20 pt-10 sm:pt-28">
       <div className="grid gap-10 md:grid-cols-5 md:items-center md:gap-12">
         <div className="relative aspect-[4/3] w-full overflow-hidden bg-stone-100 md:col-span-3">
           <Image

@@ -56,7 +56,7 @@ export default async function ArtworkDetail({
   const s = a.series ? seriesList.find((s) => s.slug === a.series) : undefined;
 
   return (
-    <div className="mx-auto max-w-7xl px-6 py-16">
+    <div className="mx-auto max-w-7xl px-6 pb-16 pt-10 sm:pt-28">
       <nav className="mb-8 text-sm text-black/50">
         <Link href="/artwork" className="hover:text-black">
           Artwork

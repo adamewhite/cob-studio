@@ -14,6 +14,7 @@ export type AccentName =
   | "lichenClose"
   | "applesField"
   | "applesNight"
+  | "applesNight2"
   | "irisesWrapped"
   | "overlook";
 
@@ -77,6 +78,10 @@ export const accents: Record<AccentName, { src: string; alt: string }> = {
   applesNight: {
     src: "/images/accents/accent-2011.jpg",
     alt: "Apples gathered in a wheelbarrow, lit at night",
+  },
+  applesNight2: {
+    src: "/images/accents/accent-2015.jpg",
+    alt: "Apples heaped in a metal wheelbarrow, lit at night",
   },
   irisesWrapped: {
     src: "/images/accents/accent-9386b.jpg",

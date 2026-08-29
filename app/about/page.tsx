@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function About() {
   return (
-    <div className="mx-auto max-w-3xl px-6 py-20">
+    <div className="mx-auto max-w-3xl px-6 pb-20 pt-10 sm:pt-28">
       <h1 className="text-3xl font-medium tracking-tight">
         Congress of Beauty
       </h1>
@@ -40,10 +40,10 @@ export default function About() {
         one-of-one — once a piece is sold, it is gone.
       </p>
       <Accent
-        name="applesField"
-        className="mt-10 aspect-[16/9] w-full"
+        name="applesNight2"
+        className="mt-10 aspect-[45/64] w-full"
         sizes="(min-width: 768px) 720px, 100vw"
-        positionClass="object-bottom"
+        positionClass="object-top"
       />
     </div>
   );

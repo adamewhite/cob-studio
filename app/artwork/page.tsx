@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function ArtworkIndex() {
   return (
-    <div className="mx-auto max-w-7xl px-6 py-16 sm:pt-[8.4rem]">
+    <div className="mx-auto max-w-7xl px-6 pb-16 pt-10 sm:pt-28">
       <div className="mb-12">
         <h1 className="text-3xl font-medium tracking-tight">Artwork</h1>
         <div className="mt-4 flex flex-wrap gap-2 text-sm">
