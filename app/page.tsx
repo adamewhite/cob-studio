@@ -87,20 +87,20 @@ export default function Home() {
       </section>
 
       <section className="mx-auto max-w-7xl px-6 py-8 sm:py-12">
-        <div className="grid grid-cols-3 gap-2 sm:gap-6">
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-6">
           <Accent
             name="sumac"
             className="aspect-[3/4]"
-            sizes="(min-width: 1280px) 400px, 33vw"
+            sizes="(min-width: 1280px) 400px, (min-width: 640px) 33vw, 50vw"
           />
           <Accent
             name="reishi"
             className="aspect-[3/4]"
-            sizes="(min-width: 1280px) 400px, 33vw"
+            sizes="(min-width: 1280px) 400px, (min-width: 640px) 33vw, 50vw"
           />
           <Accent
             name="shellCreekGold"
-            className="aspect-[3/4]"
+            className="hidden aspect-[3/4] sm:block"
             sizes="(min-width: 1280px) 400px, 33vw"
           />
         </div>
