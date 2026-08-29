@@ -10,7 +10,7 @@ export default function Contact() {
   return (
     <div className="mx-auto max-w-7xl px-6 pb-20 pt-10 sm:pt-28">
       <div className="grid gap-10 md:grid-cols-5 md:items-center md:gap-12">
-        <div className="relative aspect-[4/3] w-full overflow-hidden bg-stone-100 md:col-span-3">
+        <div className="relative aspect-[4/3] w-full overflow-hidden bg-veil md:col-span-3">
           <Image
             src="/images/contact_image.jpg"
             alt="Congress of Beauty studio"
@@ -24,11 +24,11 @@ export default function Contact() {
         <div className="md:col-span-2">
           <h1 className="text-3xl font-medium tracking-tight">Contact</h1>
 
-          <p className="mt-6 text-black/70">
+          <p className="mt-6 text-ink/70">
             For questions about a piece, a commission, or anything else, email{" "}
             <a
               href="mailto:hello@cob-studio.com"
-              className="underline hover:text-black"
+              className="underline hover:text-ink"
             >
               hello@cob-studio.com
             </a>

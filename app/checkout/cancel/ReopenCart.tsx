@@ -9,7 +9,7 @@ export function ReopenCart() {
     <button
       type='button'
       onClick={openCart}
-      className='inline-block border-b border-black/40 pb-1 text-base hover:border-black'
+      className='inline-block border-b border-ink/40 pb-1 text-base hover:border-ink'
     >
       Review your cart
     </button>

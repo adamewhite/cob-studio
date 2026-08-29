@@ -15,7 +15,7 @@ export function CartTrigger() {
     >
       <span>Cart</span>
       {count > 0 && (
-        <span className="ml-1.5 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-black px-1.5 text-xs text-white tabular-nums">
+        <span className="ml-1.5 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-ink px-1.5 text-xs text-bright tabular-nums">
           {count}
         </span>
       )}

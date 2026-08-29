@@ -81,7 +81,7 @@ export function CartDrawer() {
       <div
         aria-hidden={!isOpen}
         onClick={closeCart}
-        className={`fixed inset-0 z-50 bg-black/30 transition-opacity ${
+        className={`fixed inset-0 z-50 bg-ink/30 transition-opacity ${
           isOpen ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
       />
@@ -91,7 +91,7 @@ export function CartDrawer() {
         aria-modal={isOpen ? true : undefined}
         aria-label="Shopping cart"
         aria-hidden={!isOpen}
-        className={`fixed right-0 top-0 z-50 flex h-full w-full max-w-md flex-col bg-[#fcfbfa] shadow-xl transition-transform duration-300 ${
+        className={`fixed right-0 top-0 z-50 flex h-full w-full max-w-md flex-col bg-surface shadow-xl transition-transform duration-300 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -104,7 +104,7 @@ export function CartDrawer() {
             type="button"
             onClick={closeCart}
             aria-label="Close cart"
-            className="-m-2 p-2 text-black/60 hover:text-black"
+            className="-m-2 p-2 text-ink/60 hover:text-ink"
           >
             <svg
               width="20"
@@ -128,7 +128,7 @@ export function CartDrawer() {
             <Link
               href="/artwork"
               onClick={closeCart}
-              className="border-b border-black/40 pb-1 text-base hover:border-black"
+              className="border-b border-ink/40 pb-1 text-base hover:border-ink"
             >
               Continue shopping
             </Link>
@@ -138,7 +138,7 @@ export function CartDrawer() {
             {items.map((item) => (
               <li
                 key={item.slug}
-                className="flex gap-5 border-t border-black/10 py-6 first:border-t-0 first:pt-0"
+                className="flex gap-5 border-t border-ink/10 py-6 first:border-t-0 first:pt-0"
               >
                 <Link
                   href={`/artwork/${item.category}/${item.slug}`}
@@ -154,7 +154,7 @@ export function CartDrawer() {
                       className="h-[110px] w-[88px] object-cover"
                     />
                   ) : (
-                    <div className="h-[110px] w-[88px] bg-black/5" />
+                    <div className="h-[110px] w-[88px] bg-ink/5" />
                   )}
                 </Link>
 
@@ -171,7 +171,7 @@ export function CartDrawer() {
                       {formatPrice(item.price)}
                     </div>
                   </div>
-                  <div className="mt-1 text-sm text-black/50">
+                  <div className="mt-1 text-sm text-ink/50">
                     {item.medium}
                   </div>
 
@@ -179,7 +179,7 @@ export function CartDrawer() {
                     <button
                       type="button"
                       onClick={() => remove(item.slug)}
-                      className="text-sm text-black/50 underline-offset-4 hover:text-black hover:underline"
+                      className="text-sm text-ink/50 underline-offset-4 hover:text-ink hover:underline"
                     >
                       Remove
                     </button>
@@ -190,9 +190,9 @@ export function CartDrawer() {
           </ul>
         )}
 
-        <div className="border-t border-black/10 px-8 py-6">
+        <div className="border-t border-ink/10 px-8 py-6">
           <div
-            className="-mx-8 mb-6 px-8 py-2 text-center text-xs tracking-wide text-white"
+            className="-mx-8 mb-6 px-8 py-2 text-center text-xs tracking-wide text-bright"
             style={{ backgroundColor: "rgb(42, 65, 42)" }}
           >
             FREE shipping on U.S. orders.
@@ -204,7 +204,7 @@ export function CartDrawer() {
               {formatPrice(subtotal)} USD
             </div>
           </div>
-          <p className="mt-2 text-xs text-black/50">
+          <p className="mt-2 text-xs text-ink/50">
             Taxes, discounts and shipping calculated at checkout.
           </p>
 
@@ -218,7 +218,7 @@ export function CartDrawer() {
             type="button"
             disabled={items.length === 0 || checkingOut}
             onClick={handleCheckout}
-            className="mt-6 w-full bg-black px-6 py-4 text-base text-white transition hover:bg-black/80 disabled:cursor-not-allowed disabled:bg-black/30"
+            className="mt-6 w-full bg-ink px-6 py-4 text-base text-bright transition hover:bg-ink/80 disabled:cursor-not-allowed disabled:bg-ink/30"
           >
             {checkingOut ? "Redirecting…" : "Check out"}
           </button>

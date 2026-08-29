@@ -42,11 +42,11 @@ export default async function CategoryPage({
       <div className="mb-12 flex items-end justify-between gap-8">
         <div>
           <h1 className="text-3xl font-medium tracking-tight">{c.title}</h1>
-          <p className="mt-3 max-w-xl text-black/60">{c.blurb}</p>
+          <p className="mt-3 max-w-xl text-ink/60">{c.blurb}</p>
           <div className="mt-6 flex flex-wrap gap-2 text-sm">
             <Link
               href="/artwork"
-              className="border border-black/20 px-3 py-1 hover:bg-black/5"
+              className="border border-ink/20 px-3 py-1 hover:bg-ink/5"
             >
               All
             </Link>
@@ -56,8 +56,8 @@ export default async function CategoryPage({
                 href={`/artwork/${cat.slug}`}
                 className={
                   cat.slug === c.slug
-                    ? "border border-black bg-black px-3 py-1 text-white"
-                    : "border border-black/20 px-3 py-1 hover:bg-black/5"
+                    ? "border border-ink bg-ink px-3 py-1 text-bright"
+                    : "border border-ink/20 px-3 py-1 hover:bg-ink/5"
                 }
               >
                 {cat.title}

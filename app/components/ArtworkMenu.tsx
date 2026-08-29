@@ -46,7 +46,7 @@ export function ArtworkMenu() {
           aria-controls={menuId}
           aria-label={open ? "Close artwork menu" : "Open artwork menu"}
           onClick={() => setOpen((v) => !v)}
-          className="-m-2 ml-0 p-2 text-black/60 hover:text-black"
+          className="-m-2 ml-0 p-2 text-ink/60 hover:text-ink"
         >
           <svg
             width="12"
@@ -72,11 +72,11 @@ export function ArtworkMenu() {
         hidden={!open}
         className="absolute left-1/2 top-full -translate-x-1/2 pt-3"
       >
-        <div className="flex min-w-[14rem] flex-col gap-1 rounded-md border border-black/10 bg-white p-2 shadow-sm">
+        <div className="flex min-w-[14rem] flex-col gap-1 rounded-md border border-ink/10 bg-bright p-2 shadow-sm">
           <Link
             href="/artwork"
             onClick={() => setOpen(false)}
-            className="rounded px-3 py-2 hover:bg-black/5"
+            className="rounded px-3 py-2 hover:bg-ink/5"
           >
             All work
           </Link>
@@ -85,15 +85,15 @@ export function ArtworkMenu() {
               key={c.slug}
               href={`/artwork/${c.slug}`}
               onClick={() => setOpen(false)}
-              className="rounded px-3 py-2 hover:bg-black/5"
+              className="rounded px-3 py-2 hover:bg-ink/5"
             >
               {c.title}
             </Link>
           ))}
           {seriesList.length > 0 && (
             <>
-              <div className="my-1 border-t border-black/10" />
-              <div className="px-3 pt-1 text-xs uppercase tracking-wide text-black/40">
+              <div className="my-1 border-t border-ink/10" />
+              <div className="px-3 pt-1 text-xs uppercase tracking-wide text-ink/40">
                 Series
               </div>
               {seriesList.map((s) => (
@@ -101,7 +101,7 @@ export function ArtworkMenu() {
                   key={s.slug}
                   href={`/artwork/series/${s.slug}`}
                   onClick={() => setOpen(false)}
-                  className="rounded px-3 py-2 hover:bg-black/5"
+                  className="rounded px-3 py-2 hover:bg-ink/5"
                 >
                   {s.title}
                 </Link>

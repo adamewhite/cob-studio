@@ -94,7 +94,7 @@ export function ShareButton({
         aria-expanded={open}
         aria-controls={open ? menuId : undefined}
         aria-label={`Share ${artwork.title}`}
-        className="w-full border border-black/20 px-6 py-3.5 text-base transition hover:border-black sm:w-auto"
+        className="w-full border border-ink/20 px-6 py-3.5 text-base transition hover:border-ink sm:w-auto"
       >
         Share
       </button>
@@ -103,7 +103,7 @@ export function ShareButton({
         <div
           id={menuId}
           role="menu"
-          className="absolute left-0 z-10 mt-2 w-44 border border-black/10 bg-white py-2 shadow-sm"
+          className="absolute left-0 z-10 mt-2 w-44 border border-ink/10 bg-bright py-2 shadow-sm"
         >
           <button
             type="button"

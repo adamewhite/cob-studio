@@ -37,7 +37,7 @@ export function Nav() {
       onMouseLeave={() => setHovered(false)}
     >
       <div
-        className='absolute inset-x-0 top-0 h-32 origin-top border-b border-black/10 bg-[#f5f2ee]/70 backdrop-blur will-change-transform sm:h-[8.4rem]'
+        className='absolute inset-x-0 top-0 h-32 origin-top border-b border-ink/10 bg-paper/70 backdrop-blur will-change-transform sm:h-[8.4rem]'
         style={{
           transform: collapsed ? 'translateY(-2.375rem)' : 'translateY(0)',
           transition: 'transform 300ms cubic-bezier(0.4, 0, 0.2, 1)',
@@ -137,7 +137,7 @@ export function Nav() {
         {mobileOpen && (
           <div
             id='mobile-nav-panel'
-            className='absolute inset-x-0 top-full border-b border-black/10 bg-[#fcfbfa] sm:hidden'
+            className='absolute inset-x-0 top-full border-b border-ink/10 bg-surface sm:hidden'
           >
             <nav className='mx-auto flex max-w-7xl flex-col px-6 py-4 text-lg'>
               <Link
@@ -153,14 +153,14 @@ export function Nav() {
                     key={c.slug}
                     href={`/artwork/${c.slug}`}
                     onClick={() => setMobileOpen(false)}
-                    className='py-2 text-base text-black/70 hover:text-black'
+                    className='py-2 text-base text-ink/70 hover:text-ink'
                   >
                     {c.title}
                   </Link>
                 ))}
                 {seriesList.length > 0 && (
                   <>
-                    <div className='mt-2 pb-1 text-xs uppercase tracking-wide text-black/40'>
+                    <div className='mt-2 pb-1 text-xs uppercase tracking-wide text-ink/40'>
                       Series
                     </div>
                     {seriesList.map((s) => (
@@ -168,7 +168,7 @@ export function Nav() {
                         key={s.slug}
                         href={`/artwork/series/${s.slug}`}
                         onClick={() => setMobileOpen(false)}
-                        className='py-2 text-base text-black/70 hover:text-black'
+                        className='py-2 text-base text-ink/70 hover:text-ink'
                       >
                         {s.title}
                       </Link>
@@ -179,14 +179,14 @@ export function Nav() {
               <Link
                 href='/about'
                 onClick={() => setMobileOpen(false)}
-                className='border-t border-black/10 py-3 hover:opacity-60'
+                className='border-t border-ink/10 py-3 hover:opacity-60'
               >
                 About
               </Link>
               <Link
                 href='/contact'
                 onClick={() => setMobileOpen(false)}
-                className='border-t border-black/10 py-3 hover:opacity-60'
+                className='border-t border-ink/10 py-3 hover:opacity-60'
               >
                 Contact
               </Link>

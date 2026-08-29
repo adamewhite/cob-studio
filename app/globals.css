@@ -1,19 +1,53 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────────────────────────
+   Site palette — adjust every color on the site from here.
+
+   ink     text, buttons, borders (used with /NN opacity: ink/70)
+   bright  text and surfaces on dark backgrounds
+   paper   page background gradient, header tint
+   surface raised panels (hero text boxes, nav dropdown)
+   pine    announcement bar green
+   veil    image placeholders (was Tailwind stone-100..400)
+   ───────────────────────────────────────────────────────────── */
 :root {
-  --background: #ffffff;
+  --ink: #000000;
+  --bright: #ffffff;
   --foreground: #171717;
+
+  --paper: #f5f2ee;
+  --paper-deep: #efe8e1;
+
+  --surface: #fcfbfa;
+  --surface-deep: #f6f3f0;
+
+  --pine: rgb(42, 65, 42);
+
+  --veil: #f5f5f4;
+  --veil-mid: #e7e5e4;
+  --veil-deep: #d6d3d1;
+  --veil-deepest: #a8a29e;
 }
 
 @theme inline {
-  --color-background: var(--background);
+  --color-ink: var(--ink);
+  --color-bright: var(--bright);
   --color-foreground: var(--foreground);
+  --color-paper: var(--paper);
+  --color-paper-deep: var(--paper-deep);
+  --color-surface: var(--surface);
+  --color-surface-deep: var(--surface-deep);
+  --color-pine: var(--pine);
+  --color-veil: var(--veil);
+  --color-veil-mid: var(--veil-mid);
+  --color-veil-deep: var(--veil-deep);
+  --color-veil-deepest: var(--veil-deepest);
   --font-sans: var(--font-sans);
   --font-display: var(--font-display);
 }
 
 body {
-  background: linear-gradient(180deg, #f5f2ee 0%, #efe8e1 100%);
+  background: linear-gradient(180deg, var(--paper) 0%, var(--paper-deep) 100%);
   background-attachment: fixed;
   color: var(--foreground);
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
@@ -27,6 +61,15 @@ h5,
 h6,
 .font-display {
   font-family: var(--font-display), ui-serif, Georgia, serif;
+}
+
+/* raised panel gradient (hero text boxes) */
+.surface-panel {
+  background: linear-gradient(
+    180deg,
+    var(--surface) 0%,
+    var(--surface-deep) 100%
+  );
 }
 
 .hero-video {

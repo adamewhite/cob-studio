@@ -37,8 +37,8 @@ export default async function SeriesPage({
 
   return (
     <div className="mx-auto max-w-7xl px-6 pb-16 pt-10 sm:pt-28">
-      <nav className="mb-6 text-sm text-black/50">
-        <Link href="/artwork" className="hover:text-black">
+      <nav className="mb-6 text-sm text-ink/50">
+        <Link href="/artwork" className="hover:text-ink">
           Artwork
         </Link>
         <span className="mx-2">/</span>
@@ -48,7 +48,7 @@ export default async function SeriesPage({
       <div className="mb-12 flex items-end justify-between gap-8">
         <div>
           <h1 className="text-3xl font-medium tracking-tight">{s.title}</h1>
-          <p className="mt-3 max-w-xl text-base text-black/60">{s.blurb}</p>
+          <p className="mt-3 max-w-xl text-base text-ink/60">{s.blurb}</p>
         </div>
         <Accent
           name={seriesAccents[s.slug] ?? "polyporeBench"}

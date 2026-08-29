@@ -15,14 +15,14 @@ export default function ArtworkIndex() {
       <div className="mb-12">
         <h1 className="text-3xl font-medium tracking-tight">Artwork</h1>
         <div className="mt-4 flex flex-wrap gap-2 text-sm">
-          <span className="border border-black bg-black px-3 py-1 text-white">
+          <span className="border border-ink bg-ink px-3 py-1 text-bright">
             All
           </span>
           {categories.map((c) => (
             <Link
               key={c.slug}
               href={`/artwork/${c.slug}`}
-              className="border border-black/20 px-3 py-1 hover:bg-black/5"
+              className="border border-ink/20 px-3 py-1 hover:bg-ink/5"
             >
               {c.title}
             </Link>

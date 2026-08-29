@@ -16,7 +16,7 @@ export default function Error({
   return (
     <div className='mx-auto max-w-xl px-6 py-24 text-center'>
       <h1 className='text-3xl font-medium tracking-tight'>Something went wrong</h1>
-      <p className='mt-6 text-base leading-relaxed text-black/70'>
+      <p className='mt-6 text-base leading-relaxed text-ink/70'>
         An unexpected error stopped this page from loading. You can try again,
         or head back to the home page.
       </p>
@@ -24,11 +24,11 @@ export default function Error({
         <button
           type='button'
           onClick={() => unstable_retry()}
-          className='underline hover:text-black'
+          className='underline hover:text-ink'
         >
           Try again
         </button>
-        <a href='/' className='underline hover:text-black'>
+        <a href='/' className='underline hover:text-ink'>
           Home
         </a>
       </div>

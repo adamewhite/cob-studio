@@ -17,14 +17,14 @@ export default function CheckoutCancel() {
       <h1 className="text-balance text-3xl font-medium tracking-tight">
         No worries.
       </h1>
-      <p className="mt-6 text-balance text-base leading-relaxed text-black/70">
+      <p className="mt-6 text-balance text-base leading-relaxed text-ink/70">
         Your cart is saved. Come back when you&apos;re ready.
       </p>
       <div className="mt-10 flex flex-col items-center gap-4">
         <ReopenCart />
         <Link
           href="/artwork"
-          className="inline-block border-b border-black/40 pb-1 text-base hover:border-black"
+          className="inline-block border-b border-ink/40 pb-1 text-base hover:border-ink"
         >
           Keep browsing
         </Link>

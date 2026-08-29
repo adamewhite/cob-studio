@@ -8,7 +8,7 @@ export function ArtworkCard({ artwork }: { artwork: Artwork }) {
 
   return (
     <Link href={href} className="group block">
-      <div className="relative aspect-[4/5] w-full overflow-hidden bg-stone-100">
+      <div className="relative aspect-[4/5] w-full overflow-hidden bg-veil">
         {cover ? (
           <Image
             src={cover.src}
@@ -26,11 +26,11 @@ export function ArtworkCard({ artwork }: { artwork: Artwork }) {
       <div className="mt-3 flex items-baseline justify-between gap-3">
         <div>
           <div className="text-base">{artwork.title}</div>
-          <div className="text-sm text-black/50">{artwork.medium}</div>
+          <div className="text-sm text-ink/50">{artwork.medium}</div>
         </div>
         <div className="text-base tabular-nums">
           {artwork.sold ? (
-            <span className="text-black/40">Sold</span>
+            <span className="text-ink/40">Sold</span>
           ) : (
             formatPrice(artwork.price)
           )}

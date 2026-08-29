@@ -16,7 +16,7 @@ export function Carousel({ images }: { images: ArtworkImage[] }) {
 
   return (
     <div>
-      <div className="relative aspect-[4/5] w-full overflow-hidden bg-stone-100">
+      <div className="relative aspect-[4/5] w-full overflow-hidden bg-veil">
         <Image
           key={current.src}
           src={current.src}
@@ -33,7 +33,7 @@ export function Carousel({ images }: { images: ArtworkImage[] }) {
               type="button"
               aria-label="Previous image"
               onClick={goPrev}
-              className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 px-3 py-2 text-base backdrop-blur hover:bg-white"
+              className="absolute left-3 top-1/2 -translate-y-1/2 bg-bright/80 px-3 py-2 text-base backdrop-blur hover:bg-bright"
             >
               ←
             </button>
@@ -41,7 +41,7 @@ export function Carousel({ images }: { images: ArtworkImage[] }) {
               type="button"
               aria-label="Next image"
               onClick={goNext}
-              className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 px-3 py-2 text-base backdrop-blur hover:bg-white"
+              className="absolute right-3 top-1/2 -translate-y-1/2 bg-bright/80 px-3 py-2 text-base backdrop-blur hover:bg-bright"
             >
               →
             </button>
@@ -58,8 +58,8 @@ export function Carousel({ images }: { images: ArtworkImage[] }) {
               onClick={() => setIndex(i)}
               aria-label={`View image ${i + 1}`}
               aria-current={i === index}
-              className={`relative aspect-square w-20 overflow-hidden bg-stone-100 transition ${
-                i === index ? "ring-2 ring-black" : "opacity-70 hover:opacity-100"
+              className={`relative aspect-square w-20 overflow-hidden bg-veil transition ${
+                i === index ? "ring-2 ring-ink" : "opacity-70 hover:opacity-100"
               }`}
             >
               <Image

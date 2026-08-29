@@ -51,13 +51,12 @@ export default function RootLayout({
       lang='en'
       className={`${instrumentSans.variable} ${prozaLibre.variable} antialiased`}
     >
-      <body className='flex min-h-dvh flex-col text-black'>
+      <body className='flex min-h-dvh flex-col text-ink'>
         <CartProvider>
           <div
             role='region'
             aria-label='Announcement'
-            style={{ backgroundColor: 'rgb(42, 65, 42)' }}
-            className='text-white'
+            className='bg-pine text-bright'
           >
             <div className='mx-auto max-w-7xl px-6 py-2 text-center text-sm'>
               FREE shipping on U.S. orders.

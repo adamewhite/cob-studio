@@ -14,7 +14,7 @@ export function Accent({
 }) {
   const accent = accents[name];
   return (
-    <div className={`relative overflow-hidden bg-stone-100 ${className ?? ""}`}>
+    <div className={`relative overflow-hidden bg-veil ${className ?? ""}`}>
       <Image
         src={accent.src}
         alt={accent.alt}

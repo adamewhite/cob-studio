@@ -57,17 +57,17 @@ export default async function ArtworkDetail({
 
   return (
     <div className="mx-auto max-w-7xl px-6 pb-16 pt-10 sm:pt-28">
-      <nav className="mb-8 text-sm text-black/50">
-        <Link href="/artwork" className="hover:text-black">
+      <nav className="mb-8 text-sm text-ink/50">
+        <Link href="/artwork" className="hover:text-ink">
           Artwork
         </Link>
         <span className="mx-2">/</span>
         {s ? (
-          <Link href={`/artwork/series/${s.slug}`} className="hover:text-black">
+          <Link href={`/artwork/series/${s.slug}`} className="hover:text-ink">
             {s.title}
           </Link>
         ) : (
-          <Link href={`/artwork/${c.slug}`} className="hover:text-black">
+          <Link href={`/artwork/${c.slug}`} className="hover:text-ink">
             {c.title}
           </Link>
         )}
@@ -86,13 +86,13 @@ export default async function ArtworkDetail({
 
         <div className="md:pt-4">
           <h1 className="text-3xl font-medium tracking-tight">{a.title}</h1>
-          <div className="mt-2 text-base text-black/60">
+          <div className="mt-2 text-base text-ink/60">
             {a.medium} · {a.dimensions} · {a.year}
           </div>
 
           <div className="mt-8 text-2xl tabular-nums">
             {a.sold ? (
-              <span className="text-black/40">Sold</span>
+              <span className="text-ink/40">Sold</span>
             ) : (
               formatPrice(a.price)
             )}
@@ -104,37 +104,37 @@ export default async function ArtworkDetail({
           </div>
 
           {a.description && (
-            <p className="mt-10 max-w-md text-base leading-relaxed text-black/70">
+            <p className="mt-10 max-w-md text-base leading-relaxed text-ink/70">
               {a.description}
             </p>
           )}
 
-          <dl className="mt-10 space-y-3 border-t border-black/10 pt-6 text-base">
+          <dl className="mt-10 space-y-3 border-t border-ink/10 pt-6 text-base">
             <div className="flex justify-between gap-6">
-              <dt className="text-black/50">Medium</dt>
+              <dt className="text-ink/50">Medium</dt>
               <dd>{a.medium}</dd>
             </div>
             <div className="flex justify-between gap-6">
-              <dt className="text-black/50">Dimensions</dt>
+              <dt className="text-ink/50">Dimensions</dt>
               <dd>{a.dimensions}</dd>
             </div>
             {a.framedDimensions && (
               <div className="flex justify-between gap-6">
-                <dt className="text-black/50">Framed</dt>
+                <dt className="text-ink/50">Framed</dt>
                 <dd>{a.framedDimensions}</dd>
               </div>
             )}
             <div className="flex justify-between gap-6">
-              <dt className="text-black/50">Year</dt>
+              <dt className="text-ink/50">Year</dt>
               <dd>{a.year}</dd>
             </div>
             {s && (
               <div className="flex justify-between gap-6">
-                <dt className="text-black/50">Series</dt>
+                <dt className="text-ink/50">Series</dt>
                 <dd>
                   <Link
                     href={`/artwork/series/${s.slug}`}
-                    className="hover:text-black"
+                    className="hover:text-ink"
                   >
                     {s.title}
                   </Link>
@@ -142,7 +142,7 @@ export default async function ArtworkDetail({
               </div>
             )}
             <div className="flex justify-between gap-6">
-              <dt className="text-black/50">Edition</dt>
+              <dt className="text-ink/50">Edition</dt>
               <dd>One of one</dd>
             </div>
           </dl>

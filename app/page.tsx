@@ -32,35 +32,25 @@ export default function Home() {
         </video>
         <div className="absolute inset-x-0 bottom-0 top-0 flex items-center px-10 sm:top-[4.4rem] sm:px-10">
           <div className="mx-auto flex w-full max-w-7xl flex-col gap-4">
-            <div
-              style={{
-                background: "linear-gradient(180deg, #fcfbfa 0%, #f6f3f0 100%)",
-              }}
-              className="max-w-md p-5 shadow-xl shadow-black/10 sm:p-6"
-            >
+            <div className="surface-panel max-w-md p-5 shadow-xl shadow-ink/10 sm:p-6">
               <h1 className="text-balance text-4xl font-medium leading-tight tracking-tight sm:text-5xl">
                 Live with beauty every day.
               </h1>
-              <p className="mt-6 max-w-md text-balance text-black/60">
+              <p className="mt-6 max-w-md text-balance text-ink/60">
                 Original work from Congress of Beauty — paintings, drawings, and
                 cast sculpture, made by hand.
               </p>
             </div>
-            <div
-              style={{
-                background: "linear-gradient(180deg, #fcfbfa 0%, #f6f3f0 100%)",
-              }}
-              className="flex max-w-md flex-col gap-3 p-5 shadow-xl shadow-black/10 sm:inline-flex sm:max-w-none sm:flex-row sm:self-start sm:p-6"
-            >
+            <div className="surface-panel flex max-w-md flex-col gap-3 p-5 shadow-xl shadow-ink/10 sm:inline-flex sm:max-w-none sm:flex-row sm:self-start sm:p-6">
               <Link
                 href="/artwork"
-                className="bg-black px-6 py-3.5 text-center text-base text-white hover:bg-black/80"
+                className="bg-ink px-6 py-3.5 text-center text-base text-bright hover:bg-ink/80"
               >
                 Shop the studio
               </Link>
               <Link
                 href="/about"
-                className="border border-black/20 px-6 py-3.5 text-center text-base hover:bg-black/5"
+                className="border border-ink/20 px-6 py-3.5 text-center text-base hover:bg-ink/5"
               >
                 About the work
               </Link>
@@ -74,7 +64,7 @@ export default function Home() {
           <h2 className="text-2xl font-medium tracking-tight">New arrivals</h2>
           <Link
             href="/artwork"
-            className="text-sm text-black/60 hover:text-black"
+            className="text-sm text-ink/60 hover:text-ink"
           >
             View all →
           </Link>
@@ -104,7 +94,7 @@ export default function Home() {
             sizes="(min-width: 1280px) 400px, 33vw"
           />
         </div>
-        <p className="mt-4 max-w-xl text-sm text-black/50">
+        <p className="mt-4 max-w-xl text-sm text-ink/50">
           Gathered from the studio&apos;s corner of Maine — the woods, the
           orchard, and work finding its way back outside.
         </p>
@@ -119,7 +109,7 @@ export default function Home() {
             href={`/artwork/series/${botanical.slug}`}
             className="group block"
           >
-            <div className="relative aspect-[3/2] w-full overflow-hidden bg-stone-100">
+            <div className="relative aspect-[3/2] w-full overflow-hidden bg-veil">
               {botanicalCover ? (
                 <Image
                   src={botanicalCover.src}
@@ -132,7 +122,7 @@ export default function Home() {
             </div>
             <div className="mt-3">
               <div className="text-base">{botanical.title} series</div>
-              <div className="text-sm text-black/50">{botanical.blurb}</div>
+              <div className="text-sm text-ink/50">{botanical.blurb}</div>
             </div>
           </Link>
           {categories
@@ -143,10 +133,10 @@ export default function Home() {
                 href={`/artwork/${c.slug}`}
                 className="group block"
               >
-                <div className="aspect-[3/2] w-full bg-gradient-to-br from-stone-200 via-stone-300 to-stone-400 transition-opacity group-hover:opacity-90" />
+                <div className="aspect-[3/2] w-full bg-gradient-to-br from-veil-mid via-veil-deep to-veil-deepest transition-opacity group-hover:opacity-90" />
                 <div className="mt-3">
                   <div className="text-base">{c.title}</div>
-                  <div className="text-sm text-black/50">{c.blurb}</div>
+                  <div className="text-sm text-ink/50">{c.blurb}</div>
                 </div>
               </Link>
             ))}
