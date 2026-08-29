@@ -53,19 +53,30 @@ export function Nav() {
           <Link
             href='/'
             aria-label='Congress of Beauty — home'
-            className='block origin-left will-change-transform'
+            className='group relative block origin-left will-change-transform'
             style={{
               transform: collapsed ? 'scale(0.71875)' : 'scale(1)',
               transition: 'transform 300ms cubic-bezier(0.4, 0, 0.2, 1)',
             }}
           >
             <Image
-              src='/images/logo.png'
+              src='/images/logo-with-text.svg'
               alt='Congress of Beauty'
               width={608}
-              height={762}
+              height={766}
               priority
-              className='h-24 w-auto sm:h-[7.2rem]'
+              unoptimized
+              className='h-24 w-auto transition-opacity duration-150 group-hover:opacity-0 group-active:opacity-0 sm:h-[7.2rem]'
+            />
+            <Image
+              src='/images/logo-with-text-inverted.svg'
+              alt=''
+              aria-hidden
+              width={608}
+              height={766}
+              loading='eager'
+              unoptimized
+              className='absolute inset-0 h-full w-full opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-active:opacity-100'
             />
           </Link>
 
