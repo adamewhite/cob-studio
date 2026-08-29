@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Accent } from "../../components/Accent";
 import { ClearCartOnMount } from "./ClearCartOnMount";
 
 export const metadata = {
@@ -9,6 +10,11 @@ export default function CheckoutSuccess() {
   return (
     <div className="mx-auto max-w-2xl px-6 py-24 text-center">
       <ClearCartOnMount />
+      <Accent
+        name="applesNight"
+        className="mx-auto mb-10 aspect-[4/5] w-40"
+        sizes="160px"
+      />
       <h1 className="text-balance text-3xl font-medium tracking-tight">
         Thank you.
       </h1>

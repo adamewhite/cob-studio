@@ -1,11 +1,15 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Accent } from "../../components/Accent";
 import { ArtworkCard } from "../../components/ArtworkCard";
-import {
-  Category,
-  categories,
-  getArtworksByCategory,
-} from "../../lib/artwork";
+import { Category, categories, getArtworksByCategory } from "../../lib/artwork";
+import { AccentName } from "../../lib/accents";
+
+const categoryAccents: Record<Category, AccentName> = {
+  paintings: "lichen",
+  drawings: "puffball",
+  sculpture: "polyporeLog",
+};
 
 export function generateStaticParams() {
   return categories.map((c) => ({ category: c.slug }));
@@ -35,30 +39,37 @@ export default async function CategoryPage({
 
   return (
     <div className="mx-auto max-w-7xl px-6 py-16">
-      <div className="mb-12">
-        <h1 className="text-3xl font-medium tracking-tight">{c.title}</h1>
-        <p className="mt-3 max-w-xl text-black/60">{c.blurb}</p>
-        <div className="mt-6 flex flex-wrap gap-2 text-sm">
-          <Link
-            href="/artwork"
-            className="border border-black/20 px-3 py-1 hover:bg-black/5"
-          >
-            All
-          </Link>
-          {categories.map((cat) => (
+      <div className="mb-12 flex items-end justify-between gap-8">
+        <div>
+          <h1 className="text-3xl font-medium tracking-tight">{c.title}</h1>
+          <p className="mt-3 max-w-xl text-black/60">{c.blurb}</p>
+          <div className="mt-6 flex flex-wrap gap-2 text-sm">
             <Link
-              key={cat.slug}
-              href={`/artwork/${cat.slug}`}
-              className={
-                cat.slug === c.slug
-                  ? "border border-black bg-black px-3 py-1 text-white"
-                  : "border border-black/20 px-3 py-1 hover:bg-black/5"
-              }
+              href="/artwork"
+              className="border border-black/20 px-3 py-1 hover:bg-black/5"
             >
-              {cat.title}
+              All
             </Link>
-          ))}
+            {categories.map((cat) => (
+              <Link
+                key={cat.slug}
+                href={`/artwork/${cat.slug}`}
+                className={
+                  cat.slug === c.slug
+                    ? "border border-black bg-black px-3 py-1 text-white"
+                    : "border border-black/20 px-3 py-1 hover:bg-black/5"
+                }
+              >
+                {cat.title}
+              </Link>
+            ))}
+          </div>
         </div>
+        <Accent
+          name={categoryAccents[c.slug]}
+          className="hidden aspect-[5/4] w-44 shrink-0 sm:block"
+          sizes="176px"
+        />
       </div>
 
       <div className="grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-3 lg:grid-cols-4">
