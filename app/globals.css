@@ -13,7 +13,7 @@
 }
 
 body {
-  background: linear-gradient(180deg, #fcfbfa 0%, #f6f3f0 100%);
+  background: linear-gradient(180deg, #f5f2ee 0%, #efe8e1 100%);
   background-attachment: fixed;
   color: var(--foreground);
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;

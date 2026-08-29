@@ -37,7 +37,7 @@ export function Nav() {
       onMouseLeave={() => setHovered(false)}
     >
       <div
-        className='absolute inset-x-0 top-0 h-32 origin-top border-b border-black/10 bg-[#fcfbfa]/70 backdrop-blur will-change-transform sm:h-[8.4rem]'
+        className='absolute inset-x-0 top-0 h-32 origin-top border-b border-black/10 bg-[#f5f2ee]/70 backdrop-blur will-change-transform sm:h-[8.4rem]'
         style={{
           transform: collapsed ? 'translateY(-2.375rem)' : 'translateY(0)',
           transition: 'transform 300ms cubic-bezier(0.4, 0, 0.2, 1)',
