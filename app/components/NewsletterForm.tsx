@@ -47,7 +47,7 @@ export function NewsletterForm() {
         <button
           type="submit"
           disabled={status.kind === "submitting"}
-          className="bg-ink px-4 py-2 text-base text-bright hover:bg-ink/80 disabled:cursor-not-allowed disabled:bg-ink/30"
+          className="bg-pine px-4 py-2 text-base text-bright hover:bg-pine/80 disabled:cursor-not-allowed disabled:bg-pine/30"
         >
           {status.kind === "submitting" ? "…" : "Sign up"}
         </button>
