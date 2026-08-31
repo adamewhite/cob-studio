@@ -5,6 +5,7 @@ import { ArtworkCard } from "./components/ArtworkCard";
 import {
   artworks,
   categories,
+  getArtworksByCategory,
   getArtworksBySeries,
   seriesList,
 } from "./lib/artwork";
@@ -44,13 +45,13 @@ export default function Home() {
             <div className="surface-panel flex max-w-md flex-col gap-3 p-5 shadow-xl shadow-ink/10 sm:inline-flex sm:max-w-none sm:flex-row sm:self-start sm:p-6">
               <Link
                 href="/artwork"
-                className="bg-ink px-6 py-3.5 text-center text-base text-bright hover:bg-ink/80"
+                className="bg-pine px-6 py-3.5 text-center text-base text-bright hover:bg-pine/80"
               >
                 Shop the studio
               </Link>
               <Link
                 href="/about"
-                className="border border-ink/20 px-6 py-3.5 text-center text-base hover:bg-ink/5"
+                className="border border-pine px-6 py-3.5 text-center text-base hover:bg-pine/5"
               >
                 About the work
               </Link>
@@ -62,10 +63,7 @@ export default function Home() {
       <section className="mx-auto max-w-7xl px-6 py-16">
         <div className="mb-8 flex items-baseline justify-between">
           <h2 className="text-2xl font-medium tracking-tight">New arrivals</h2>
-          <Link
-            href="/artwork"
-            className="text-sm text-ink/60 hover:text-ink"
-          >
+          <Link href="/artwork" className="text-sm text-ink/60 hover:text-ink">
             View all →
           </Link>
         </div>
@@ -76,28 +74,30 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-8 sm:py-12">
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-6">
-          <Accent
-            name="sumac"
-            className="aspect-[3/4]"
-            sizes="(min-width: 1280px) 400px, (min-width: 640px) 33vw, 50vw"
-          />
-          <Accent
-            name="reishi"
-            className="aspect-[3/4]"
-            sizes="(min-width: 1280px) 400px, (min-width: 640px) 33vw, 50vw"
-          />
-          <Accent
-            name="shellCreekGold"
-            className="hidden aspect-[3/4] sm:block"
-            sizes="(min-width: 1280px) 400px, 33vw"
-          />
+      <section className="bg-accent">
+        <div className="mx-auto max-w-7xl px-6 py-8 sm:py-12">
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-6">
+            <Accent
+              name="sumac"
+              className="aspect-[3/4]"
+              sizes="(min-width: 1280px) 400px, (min-width: 640px) 33vw, 50vw"
+            />
+            <Accent
+              name="reishi"
+              className="aspect-[3/4]"
+              sizes="(min-width: 1280px) 400px, (min-width: 640px) 33vw, 50vw"
+            />
+            <Accent
+              name="shellCreekGold"
+              className="hidden aspect-[3/4] sm:block"
+              sizes="(min-width: 1280px) 400px, 33vw"
+            />
+          </div>
+          <p className="mt-4 max-w-xl text-sm text-ink/50">
+            Gathered from the studio&apos;s corner of Maine — the woods, the
+            orchard, and work finding its way back outside.
+          </p>
         </div>
-        <p className="mt-4 max-w-xl text-sm text-ink/50">
-          Gathered from the studio&apos;s corner of Maine — the woods, the
-          orchard, and work finding its way back outside.
-        </p>
       </section>
 
       <section className="mx-auto max-w-7xl px-6 pt-8 pb-12 sm:py-16">
@@ -127,19 +127,34 @@ export default function Home() {
           </Link>
           {categories
             .filter((c) => c.slug !== "paintings")
-            .map((c) => (
-              <Link
-                key={c.slug}
-                href={`/artwork/${c.slug}`}
-                className="group block"
-              >
-                <div className="aspect-[3/2] w-full bg-gradient-to-br from-veil-mid via-veil-deep to-veil-deepest transition-opacity group-hover:opacity-90" />
-                <div className="mt-3">
-                  <div className="text-base">{c.title}</div>
-                  <div className="text-sm text-ink/50">{c.blurb}</div>
-                </div>
-              </Link>
-            ))}
+            .map((c) => {
+              const cover = getArtworksByCategory(c.slug)[0]?.images?.[0];
+              return (
+                <Link
+                  key={c.slug}
+                  href={`/artwork/${c.slug}`}
+                  className="group block"
+                >
+                  <div className="relative aspect-[3/2] w-full overflow-hidden bg-veil">
+                    {cover ? (
+                      <Image
+                        src={cover.src}
+                        alt={cover.alt}
+                        fill
+                        sizes="(min-width: 768px) 33vw, 100vw"
+                        className="object-cover transition-opacity group-hover:opacity-90"
+                      />
+                    ) : (
+                      <div className="h-full w-full bg-gradient-to-br from-veil-mid via-veil-deep to-veil-deepest transition-opacity group-hover:opacity-90" />
+                    )}
+                  </div>
+                  <div className="mt-3">
+                    <div className="text-base">{c.title}</div>
+                    <div className="text-sm text-ink/50">{c.blurb}</div>
+                  </div>
+                </Link>
+              );
+            })}
         </div>
       </section>
     </div>

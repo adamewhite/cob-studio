@@ -37,7 +37,7 @@ export function Nav() {
       onMouseLeave={() => setHovered(false)}
     >
       <div
-        className='absolute inset-x-0 top-0 h-32 origin-top border-b border-ink/10 bg-paper/70 backdrop-blur will-change-transform sm:h-[8.4rem]'
+        className='absolute inset-x-0 top-0 h-32 origin-top border-b border-ink/10 bg-paper will-change-transform sm:h-[8.4rem]'
         style={{
           transform: collapsed ? 'translateY(-2.375rem)' : 'translateY(0)',
           transition: 'transform 300ms cubic-bezier(0.4, 0, 0.2, 1)',
@@ -137,7 +137,7 @@ export function Nav() {
         {mobileOpen && (
           <div
             id='mobile-nav-panel'
-            className='absolute inset-x-0 top-full border-b border-ink/10 bg-surface sm:hidden'
+            className='absolute inset-x-0 top-full border-b border-ink/10 bg-paper sm:hidden'
           >
             <nav className='mx-auto flex max-w-7xl flex-col px-6 py-4 text-lg'>
               <Link

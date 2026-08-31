@@ -5,7 +5,8 @@
 
    ink     text, buttons, borders (used with /NN opacity: ink/70)
    bright  text and surfaces on dark backgrounds
-   paper   page background gradient, header tint
+   paper   page background, header tint
+   accent  tinted section bands (e.g. accent-photo strips)
    surface raised panels (hero text boxes, nav dropdown)
    pine    announcement bar green
    veil    image placeholders (was Tailwind stone-100..400)
@@ -15,8 +16,8 @@
   --bright: #ffffff;
   --foreground: #171717;
 
-  --paper: #f5f2ee;
-  --paper-deep: #efe8e1;
+  --paper: rgb(255, 255, 255);
+  --accent: rgb(247, 246, 242);
 
   --surface: #fcfbfa;
   --surface-deep: #f6f3f0;
@@ -34,7 +35,7 @@
   --color-bright: var(--bright);
   --color-foreground: var(--foreground);
   --color-paper: var(--paper);
-  --color-paper-deep: var(--paper-deep);
+  --color-accent: var(--accent);
   --color-surface: var(--surface);
   --color-surface-deep: var(--surface-deep);
   --color-pine: var(--pine);
@@ -47,8 +48,7 @@
 }
 
 body {
-  background: linear-gradient(180deg, var(--paper) 0%, var(--paper-deep) 100%);
-  background-attachment: fixed;
+  background: var(--paper);
   color: var(--foreground);
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
 }
