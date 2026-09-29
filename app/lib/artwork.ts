@@ -52,7 +52,7 @@ export const seriesList: { slug: Series; title: string; blurb: string }[] = [
 const botanicals: Artwork[] = Array.from({ length: 12 }, (_, i) => {
   const n = i + 1;
   const padded = String(n).padStart(2, '0');
-  const file = (variant: 'Full' | 'Detail' | 'Framed') =>
+  const file = (variant: 'Full' | 'Detail' | 'Framed' | 'Shelf') =>
     `/images/artwork/botanical/${encodeURIComponent(
       `Botanical Painting - ${padded} - ${variant}.jpg`,
     )}`;
@@ -68,6 +68,7 @@ const botanicals: Artwork[] = Array.from({ length: 12 }, (_, i) => {
     price: 325,
     images: [
       { src: file('Framed'), alt: `Botanical No. ${n}, framed` },
+      { src: file('Shelf'), alt: `Botanical No. ${n}, framed on a shelf` },
       { src: file('Full'), alt: `Botanical No. ${n}, full view` },
       { src: file('Detail'), alt: `Botanical No. ${n}, detail` },
     ],
