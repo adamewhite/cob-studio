@@ -64,7 +64,7 @@ export function Nav() {
               alt='Congress of Beauty'
               width={608}
               height={766}
-              priority
+              loading='eager'
               unoptimized
               className='h-24 w-auto transition-opacity duration-150 group-hover:opacity-0 group-active:opacity-0 sm:h-[7.2rem]'
             />

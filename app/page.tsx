@@ -28,8 +28,8 @@ export default function Home() {
           aria-label="Congress of Beauty studio"
           className="hero-video h-[70vh] w-full object-cover sm:h-[80vh]"
         >
-          <source src="/videos/hero_video.mp4" type="video/mp4" />
           <source src="/videos/hero_video.webm" type="video/webm" />
+          <source src="/videos/hero_video.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-x-0 bottom-0 top-0 flex items-center px-10 sm:top-[4.4rem] sm:px-10">
           <div className="mx-auto flex w-full max-w-7xl flex-col gap-4">
@@ -128,7 +128,8 @@ export default function Home() {
           {categories
             .filter((c) => c.slug !== "paintings")
             .map((c) => {
-              const cover = getArtworksByCategory(c.slug)[0]?.images?.[0];
+              const cover =
+                c.cover ?? getArtworksByCategory(c.slug)[0]?.images?.[0];
               return (
                 <Link
                   key={c.slug}
@@ -142,6 +143,7 @@ export default function Home() {
                         alt={cover.alt}
                         fill
                         sizes="(min-width: 768px) 33vw, 100vw"
+                        style={{ objectPosition: cover.position }}
                         className="object-cover transition-opacity group-hover:opacity-90"
                       />
                     ) : (

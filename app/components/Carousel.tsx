@@ -23,7 +23,8 @@ export function Carousel({ images }: { images: ArtworkImage[] }) {
           alt={current.alt}
           fill
           sizes="(min-width: 768px) 50vw, 100vw"
-          priority
+          loading="eager"
+          fetchPriority="high"
           className="object-cover"
         />
 

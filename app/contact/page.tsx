@@ -17,7 +17,8 @@ export default function Contact() {
             fill
             sizes="(min-width: 768px) 60vw, 100vw"
             className="object-cover"
-            priority
+            loading="eager"
+            fetchPriority="high"
           />
         </div>
 

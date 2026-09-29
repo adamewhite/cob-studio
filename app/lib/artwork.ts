@@ -4,6 +4,8 @@ export type Series = 'botanical';
 export type ArtworkImage = {
   src: string;
   alt: string;
+  // CSS object-position for cropped displays, e.g. 'center bottom'.
+  position?: string;
 };
 
 export type Artwork = {
@@ -22,7 +24,12 @@ export type Artwork = {
   sold?: boolean;
 };
 
-export const categories: { slug: Category; title: string; blurb: string }[] = [
+export const categories: {
+  slug: Category;
+  title: string;
+  blurb: string;
+  cover?: ArtworkImage;
+}[] = [
   {
     slug: 'paintings',
     title: 'Paintings',
@@ -37,6 +44,13 @@ export const categories: { slug: Category; title: string; blurb: string }[] = [
     slug: 'sculpture',
     title: 'Sculpture',
     blurb: 'Cast tabletop sculpture, including the mushroom series.',
+    cover: {
+      src: `/images/artwork/sculpture/${encodeURIComponent(
+        'Sculpture - Shells - Shelf.jpg',
+      )}`,
+      alt: 'Cast shell sculpture on a shelf beside a potted jade plant',
+      position: 'center bottom',
+    },
   },
 ];
 
