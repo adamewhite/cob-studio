@@ -51,7 +51,7 @@ export function Carousel({ images }: { images: ArtworkImage[] }) {
       </div>
 
       {images.length > 1 && (
-        <div className="mt-3 flex gap-3">
+        <div className="mt-3 flex gap-2 sm:gap-3">
           {images.map((img, i) => (
             <button
               key={img.src}
@@ -59,7 +59,7 @@ export function Carousel({ images }: { images: ArtworkImage[] }) {
               onClick={() => setIndex(i)}
               aria-label={`View image ${i + 1}`}
               aria-current={i === index}
-              className={`relative aspect-square w-20 overflow-hidden bg-veil transition ${
+              className={`relative aspect-square min-w-0 max-w-20 flex-1 overflow-hidden bg-veil transition ${
                 i === index ? "ring-2 ring-ink" : "opacity-70 hover:opacity-100"
               }`}
             >
