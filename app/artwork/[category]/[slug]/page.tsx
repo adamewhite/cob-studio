@@ -29,6 +29,7 @@ export async function generateMetadata({
   return {
     title: a.title,
     description,
+    ...(a.hidden && { robots: { index: false } }),
     openGraph: {
       title: a.title,
       description,

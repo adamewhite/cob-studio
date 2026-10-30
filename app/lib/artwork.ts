@@ -24,6 +24,9 @@ export type Artwork = {
   thumbnail?: ArtworkImage;
   gradient?: string;
   sold?: boolean;
+  // Reachable by direct link and purchasable, but left out of listings,
+  // the sitemap, and search indexing. Used for checkout test items.
+  hidden?: boolean;
 };
 
 export const categories: {
@@ -142,14 +145,33 @@ const sculptures: Artwork[] = [
   },
 ];
 
-export const artworks: Artwork[] = [
+// Hidden $0.50 item for testing live checkout end to end. Stripe's minimum
+// charge is $0.50. Visit /artwork/sculpture/payment-test to buy it.
+const testItems: Artwork[] = [
+  {
+    slug: 'payment-test',
+    title: 'Payment Test',
+    category: 'sculpture',
+    medium: 'Checkout test item, not a real artwork',
+    dimensions: 'N/A',
+    year: 2026,
+    price: 0.5,
+    gradient: 'from-stone-100 via-stone-200 to-stone-300',
+    hidden: true,
+  },
+];
+
+const allArtworks: Artwork[] = [
   ...botanicals,
   ...drawings,
   ...sculptures,
+  ...testItems,
 ];
 
+export const artworks: Artwork[] = allArtworks.filter((a) => !a.hidden);
+
 export function getArtwork(slug: string): Artwork | undefined {
-  return artworks.find((a) => a.slug === slug);
+  return allArtworks.find((a) => a.slug === slug);
 }
 
 export function getArtworksByCategory(category: Category): Artwork[] {
@@ -168,10 +190,13 @@ export function getThumbnail(artwork: Artwork): ArtworkImage | undefined {
   return artwork.thumbnail ?? getCoverImage(artwork);
 }
 
-export function formatPrice(cents: number): string {
+export function formatPrice(dollars: number): string {
+  // Whole-dollar prices show no cents; sub-dollar test prices need them.
+  const digits = Number.isInteger(dollars) ? 0 : 2;
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
-    maximumFractionDigits: 0,
-  }).format(cents);
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits,
+  }).format(dollars);
 }

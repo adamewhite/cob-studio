@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
       quantity: 1,
       price_data: {
         currency: "usd",
-        unit_amount: artwork.price * 100,
+        unit_amount: Math.round(artwork.price * 100),
         product_data: {
           name: artwork.title,
           description: `${artwork.medium} · ${artwork.dimensions}`,
