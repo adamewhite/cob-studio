@@ -14,7 +14,7 @@ Where things stand and what's left to ship real sales. Stop point: live deploy a
 - ✅ Policy pages live: `/policies/shipping`, `/policies/returns`, `/policies/privacy`
 - ✅ Vercel Web Analytics + Speed Insights wired in and enabled
 - ✅ About page copy refreshed
-- ✅ Real prices restored ($325 botanicals / $225 drawings / $275 mushroom casts)
+- ✅ Real prices set ($295 paintings / $145 drawings; sculpture hidden for now)
 - ✅ Maine sales tax registration submitted (2026-05-11, confirmation `0-003-866-562`) — awaiting issuance
 - ✅ Cloudflare Email Routing live: `hello@` and `sales@cob-studio.com` forward to evilofbanality@gmail.com
 - ✅ `/contact` page (email-only, points at hello@cob-studio.com)

@@ -20,7 +20,8 @@ export type AccentName =
   | "irisesBundled"
   | "boulder"
   | "polyporeHostas"
-  | "barnWindow";
+  | "barnWindow"
+  | "barnLight";
 
 export const accents: Record<AccentName, { src: string; alt: string }> = {
   sumac: {
@@ -110,5 +111,9 @@ export const accents: Record<AccentName, { src: string; alt: string }> = {
   barnWindow: {
     src: "/images/accents/accent-barn-window.jpg",
     alt: "A dark barn window looking out on fall foliage and a white roof",
+  },
+  barnLight: {
+    src: "/images/accents/accent-barn-light.jpg",
+    alt: "Dappled sunlight across the weathered plank wall of a barn",
   },
 };

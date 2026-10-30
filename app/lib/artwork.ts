@@ -29,11 +29,14 @@ export type Artwork = {
   hidden?: boolean;
 };
 
-export const categories: {
+const allCategories: {
   slug: Category;
   title: string;
   blurb: string;
   cover?: ArtworkImage;
+  // Hidden categories drop out of menus, pages, the sitemap, and checkout,
+  // along with every piece in them. Flip back to show the section again.
+  hidden?: boolean;
 }[] = [
   {
     slug: 'paintings',
@@ -48,6 +51,8 @@ export const categories: {
   {
     slug: 'sculpture',
     title: 'Sculpture',
+    // Hidden until the Shells listing has real medium, dimensions, and price.
+    hidden: true,
     blurb: 'Cast tabletop sculpture, including the mushroom series.',
     cover: {
       src: `/images/artwork/sculpture/${encodeURIComponent(
@@ -58,6 +63,11 @@ export const categories: {
     },
   },
 ];
+
+export const categories = allCategories.filter((c) => !c.hidden);
+const hiddenCategories = new Set(
+  allCategories.filter((c) => c.hidden).map((c) => c.slug),
+);
 
 export const seriesList: { slug: Series; title: string; blurb: string }[] = [
   {
@@ -84,7 +94,7 @@ const botanicals: Artwork[] = Array.from({ length: 12 }, (_, i) => {
     dimensions: '11" × 17"',
     framedDimensions: '12" × 18"',
     year: 2025,
-    price: 325,
+    price: 295,
     thumbnail: { src: file('Thumb'), alt: `Botanical No. ${n}, framed` },
     images: [
       { src: file('Shelf'), alt: `Botanical No. ${n}, framed on a shelf` },
@@ -111,7 +121,7 @@ const drawings: Artwork[] = Array.from({ length: 19 }, (_, i) => {
     medium: 'Graphite on paper, framed',
     dimensions: '11" × 14"',
     year: 2025,
-    price: 225,
+    price: 145,
     thumbnail: { src: file(' - Thumb'), alt: `Drawing No. ${n}` },
     images: [
       { src: file(''), alt: `Drawing No. ${n}` },
@@ -145,11 +155,17 @@ const sculptures: Artwork[] = [
   },
 ];
 
+// Pieces are released in tranches: only the first N of each list are on the
+// site. The rest stay out of listings, direct links, and checkout until
+// released — raise the number to release the next tranche.
+const RELEASED_BOTANICALS = 6;
+const RELEASED_DRAWINGS = 6;
+
 const allArtworks: Artwork[] = [
-  ...botanicals,
-  ...drawings,
+  ...botanicals.slice(0, RELEASED_BOTANICALS),
+  ...drawings.slice(0, RELEASED_DRAWINGS),
   ...sculptures,
-];
+].filter((a) => !hiddenCategories.has(a.category));
 
 export const artworks: Artwork[] = allArtworks.filter((a) => !a.hidden);
 

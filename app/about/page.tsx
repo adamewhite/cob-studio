@@ -21,10 +21,9 @@ export default function About() {
         living there.
       </p>
       <Accent
-        name='overlook'
+        name='barnLight'
         className='mt-10 aspect-[4/3] w-full'
         sizes='(min-width: 768px) 720px, 100vw'
-        positionClass='object-[50%_60%]'
       />
       <p className='mt-10 text-ink/70'>
         The rhythms of the seasons, the flora and fauna, and the quality of

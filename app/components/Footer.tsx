@@ -54,14 +54,6 @@ export function Footer() {
                 Drawings
               </Link>
             </li>
-            <li>
-              <Link
-                href='/artwork/sculpture'
-                className='hover:text-ink'
-              >
-                Sculpture
-              </Link>
-            </li>
           </ul>
         </div>
 

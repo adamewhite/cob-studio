@@ -6,8 +6,6 @@ import {
   artworks,
   categories,
   getArtworksByCategory,
-  getArtworksBySeries,
-  seriesList,
 } from "./lib/artwork";
 import { withLiveSold } from "./lib/sold";
 
@@ -17,8 +15,15 @@ export const revalidate = 3600;
 
 export default async function Home() {
   const newArrivals = await withLiveSold(artworks.slice(0, 4));
-  const botanical = seriesList[0];
-  const botanicalCover = getArtworksBySeries(botanical.slug)[0]?.images?.[0];
+  // One card per visible category. Columns follow the count so the row
+  // always spans the full width, e.g. while a category is hidden.
+  const collectionCount = categories.length;
+  const collectionCols =
+    collectionCount >= 3 ? "md:grid-cols-3" : "md:grid-cols-2";
+  const collectionSizes =
+    collectionCount >= 3
+      ? "(min-width: 768px) 33vw, 100vw"
+      : "(min-width: 768px) 50vw, 100vw";
 
   return (
     <div>
@@ -116,30 +121,8 @@ export default async function Home() {
         <h2 className="mb-8 text-2xl font-medium tracking-tight">
           Browse by collection
         </h2>
-        <div className="grid gap-6 md:grid-cols-3">
-          <Link
-            href={`/artwork/series/${botanical.slug}`}
-            className="group block"
-          >
-            <div className="relative aspect-[3/2] w-full overflow-hidden bg-veil">
-              {botanicalCover ? (
-                <Image
-                  src={botanicalCover.src}
-                  alt={botanicalCover.alt}
-                  fill
-                  sizes="(min-width: 768px) 33vw, 100vw"
-                  className="object-cover transition-opacity group-hover:opacity-90"
-                />
-              ) : null}
-            </div>
-            <div className="mt-3">
-              <div className="text-base">{botanical.title} series</div>
-              <div className="text-sm text-ink/50">{botanical.blurb}</div>
-            </div>
-          </Link>
-          {categories
-            .filter((c) => c.slug !== "paintings")
-            .map((c) => {
+        <div className={`grid gap-6 ${collectionCols}`}>
+          {categories.map((c) => {
               const cover =
                 c.cover ?? getArtworksByCategory(c.slug)[0]?.images?.[0];
               return (
@@ -154,7 +137,7 @@ export default async function Home() {
                         src={cover.src}
                         alt={cover.alt}
                         fill
-                        sizes="(min-width: 768px) 33vw, 100vw"
+                        sizes={collectionSizes}
                         style={{ objectPosition: cover.position }}
                         className="object-cover transition-opacity group-hover:opacity-90"
                       />
