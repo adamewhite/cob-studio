@@ -3,11 +3,16 @@ import { notFound } from "next/navigation";
 import { Accent } from "../../../components/Accent";
 import { ArtworkCard } from "../../../components/ArtworkCard";
 import { Series, getArtworksBySeries, seriesList } from "../../../lib/artwork";
+import { withLiveSold } from "../../../lib/sold";
 import { AccentName } from "../../../lib/accents";
 
 const seriesAccents: Partial<Record<Series, AccentName>> = {
   botanical: "sumac",
 };
+
+// Sold pieces come from Stripe; the sale webhook refreshes pages right away,
+// and this catches anything it misses (refunds, a failed webhook).
+export const revalidate = 3600;
 
 export function generateStaticParams() {
   return seriesList.map((s) => ({ series: s.slug }));
@@ -33,7 +38,7 @@ export default async function SeriesPage({
   const s = seriesList.find((x) => x.slug === series);
   if (!s) notFound();
 
-  const works = getArtworksBySeries(series as Series);
+  const works = await withLiveSold(getArtworksBySeries(series as Series));
 
   return (
     <div className="mx-auto max-w-7xl px-6 pb-16 pt-10 sm:pt-28">

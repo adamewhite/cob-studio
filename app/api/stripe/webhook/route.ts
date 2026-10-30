@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { NextResponse, type NextRequest } from "next/server";
 import type Stripe from "stripe";
 import { getStripe } from "../../../lib/stripe";
@@ -12,6 +13,7 @@ import {
   orderConfirmationText,
 } from "../../../lib/orderEmail";
 import { absoluteUrl } from "../../../lib/site";
+import { getPaidSlugs } from "../../../lib/sold";
 
 export const runtime = "nodejs";
 
@@ -116,7 +118,29 @@ export async function POST(request: NextRequest) {
       : ["(no shipping address)"];
     const shipTo = shipToLines.join("\n");
 
-    const text = `New sale on Congress of Beauty.
+    // Two buyers can race through checkout for the same one-of-one before
+    // either payment lands. Catch it here so the later buyer can be refunded
+    // before anything ships.
+    let doubleSold: string[] = [];
+    try {
+      const paidElsewhere = await getPaidSlugs({ excludeSessionId: session.id });
+      doubleSold = items
+        .map((i) => i.slug)
+        .filter((slug) => slug && paidElsewhere.has(slug));
+    } catch (err) {
+      console.error("Double-sale check failed", {
+        sessionId: session.id,
+        error: err instanceof Error ? err.message : err,
+      });
+    }
+
+    const doubleSaleNote = doubleSold.length
+      ? `DOUBLE SALE: ${doubleSold.join(", ")} was already paid for in another order. Refund this order in Stripe and email the customer. They were NOT sent an order confirmation.
+
+`
+      : "";
+
+    const text = `${doubleSaleNote}New sale on Congress of Beauty.
 
 Items:
 ${lines}
@@ -130,7 +154,7 @@ ${shipTo}
 
 Stripe session: ${session.id}
 
-Mark these slugs as sold:true in app/lib/artwork.ts and redeploy.`;
+These pieces now show as sold on the site automatically.`;
 
     const slugList = items.map((i) => i.slug).filter(Boolean).join(", ");
 
@@ -139,7 +163,7 @@ Mark these slugs as sold:true in app/lib/artwork.ts and redeploy.`;
         {
           from: SALE_FROM_EMAIL,
           to: getSaleNotificationEmail(),
-          subject: `Sale: ${slugList || session.id}`,
+          subject: `${doubleSold.length ? "DOUBLE SALE: " : "Sale: "}${slugList || session.id}`,
           text,
         },
         { idempotencyKey: `sale-notification/${session.id}` },
@@ -155,7 +179,7 @@ Mark these slugs as sold:true in app/lib/artwork.ts and redeploy.`;
       });
     }
 
-    if (customer?.email) {
+    if (customer?.email && doubleSold.length === 0) {
       const emailInput = {
         firstName: customer.name?.split(" ")[0],
         items: items.map((i) => {
@@ -199,6 +223,11 @@ Mark these slugs as sold:true in app/lib/artwork.ts and redeploy.`;
         });
       }
     }
+  }
+
+  if (event.type === "checkout.session.completed") {
+    // Refresh every page so sold pieces show as sold on the next visit.
+    revalidatePath("/", "layout");
   }
 
   processedEventIds.add(event.id);

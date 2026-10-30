@@ -9,9 +9,14 @@ import {
   getArtworksBySeries,
   seriesList,
 } from "./lib/artwork";
+import { withLiveSold } from "./lib/sold";
 
-export default function Home() {
-  const newArrivals = artworks.slice(0, 4);
+// Sold pieces come from Stripe; the sale webhook refreshes pages right away,
+// and this catches anything it misses (refunds, a failed webhook).
+export const revalidate = 3600;
+
+export default async function Home() {
+  const newArrivals = await withLiveSold(artworks.slice(0, 4));
   const botanical = seriesList[0];
   const botanicalCover = getArtworksBySeries(botanical.slug)[0]?.images?.[0];
 

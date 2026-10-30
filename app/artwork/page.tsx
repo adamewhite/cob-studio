@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Accent } from "../components/Accent";
 import { ArtworkCard } from "../components/ArtworkCard";
 import { artworks, categories } from "../lib/artwork";
+import { withLiveSold } from "../lib/sold";
 
 export const metadata = {
   title: "Artwork",
@@ -9,7 +10,12 @@ export const metadata = {
     "Original paintings, drawings, and cast sculpture from Congress of Beauty.",
 };
 
-export default function ArtworkIndex() {
+// Sold pieces come from Stripe; the sale webhook refreshes pages right away,
+// and this catches anything it misses (refunds, a failed webhook).
+export const revalidate = 3600;
+
+export default async function ArtworkIndex() {
+  const live = await withLiveSold(artworks);
   return (
     <div className="mx-auto max-w-7xl px-6 pb-16 pt-10 sm:pt-28">
       <div className="mb-12">
@@ -31,7 +37,7 @@ export default function ArtworkIndex() {
       </div>
 
       <div className="grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-3 lg:grid-cols-4">
-        {artworks.slice(0, 12).map((a) => (
+        {live.slice(0, 12).map((a) => (
           <ArtworkCard key={a.slug} artwork={a} />
         ))}
       </div>
@@ -41,7 +47,7 @@ export default function ArtworkIndex() {
         sizes="(min-width: 1280px) 1232px, 100vw"
       />
       <div className="grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-3 lg:grid-cols-4">
-        {artworks.slice(12).map((a) => (
+        {live.slice(12).map((a) => (
           <ArtworkCard key={a.slug} artwork={a} />
         ))}
       </div>

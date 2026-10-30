@@ -57,18 +57,17 @@ GSC + Bing are set up; sitemap submitted to both. Indexing typically takes 1–4
 
 ## Operational workflow when a real sale comes in
 
-The webhook emails you when a sale happens. Steps to fulfill:
+The webhook emails you when a sale happens, emails the buyer a branded order confirmation (ships within a week), and the piece shows as **sold automatically**: checkout records each order's pieces in Stripe, pages refresh after every sale (and hourly as a fallback), and checkout refuses anything already paid for. A fully refunded order puts the piece back on sale within the hour.
 
 1. Email arrives at evilofbanality@gmail.com — subject `Sale: <slug>` with order details and shipping address.
-2. Open `app/lib/artwork.ts` → find the artwork by slug → add `sold: true,`.
-3. `git commit -am "Mark <slug> sold" && git push`.
-4. Vercel auto-deploys. Piece is now hidden/marked sold within ~1 min.
-5. Pack and ship the piece. USPS with tracking (per shipping policy: within 3–5 business days).
-6. Reply to the customer (their email is in the sale notification) with tracking.
+   - If the subject starts with `DOUBLE SALE:`, two buyers paid for the same piece at nearly the same moment. Refund that order in Stripe and email the buyer; they were not sent an order confirmation.
+2. Pack and ship the piece within a week. USPS with tracking (per shipping policy: within 3–5 business days).
+3. Reply to the customer (their email is in the sale notification) with tracking.
+
+For pieces sold outside the site, add `sold: true,` to the artwork in `app/lib/artwork.ts` and push.
 
 ## Nice-to-haves (not blocking)
 
-- **Custom branded order confirmation email to customer.** Stripe sends a default receipt; can be replaced with a Resend email styled to match the site.
 - **Inventory backup** — `artwork.ts` is source of truth and is in git. No action needed unless you grow beyond a single source file.
 - **Stripe Claude Code skill** — `npx skills add -y https://docs.stripe.com` if Stripe work expands beyond hosted Checkout.
 

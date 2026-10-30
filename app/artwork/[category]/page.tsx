@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Accent } from "../../components/Accent";
 import { ArtworkCard } from "../../components/ArtworkCard";
 import { Category, categories, getArtworksByCategory } from "../../lib/artwork";
+import { withLiveSold } from "../../lib/sold";
 import { AccentName } from "../../lib/accents";
 
 const categoryAccents: Record<Category, AccentName> = {
@@ -10,6 +11,10 @@ const categoryAccents: Record<Category, AccentName> = {
   drawings: "puffball",
   sculpture: "polyporeLog",
 };
+
+// Sold pieces come from Stripe; the sale webhook refreshes pages right away,
+// and this catches anything it misses (refunds, a failed webhook).
+export const revalidate = 3600;
 
 export function generateStaticParams() {
   return categories.map((c) => ({ category: c.slug }));
@@ -35,7 +40,9 @@ export default async function CategoryPage({
   const c = categories.find((c) => c.slug === category);
   if (!c) notFound();
 
-  const works = getArtworksByCategory(category as Category);
+  const works = await withLiveSold(
+    getArtworksByCategory(category as Category),
+  );
 
   return (
     <div className="mx-auto max-w-7xl px-6 pb-16 pt-10 sm:pt-28">

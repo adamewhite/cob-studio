@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { getStripe } from "../../lib/stripe";
 import { getArtwork } from "../../lib/artwork";
+import { getPaidSlugs } from "../../lib/sold";
 
 export async function POST(request: NextRequest) {
   let body: { slugs?: unknown };
@@ -13,6 +14,28 @@ export async function POST(request: NextRequest) {
   const slugs = body.slugs;
   if (!Array.isArray(slugs) || slugs.length === 0) {
     return NextResponse.json({ error: "Cart is empty" }, { status: 400 });
+  }
+  if (new Set(slugs).size !== slugs.length) {
+    return NextResponse.json(
+      { error: "Invalid cart contents" },
+      { status: 400 },
+    );
+  }
+
+  // Live check against Stripe so a one-of-one can't be bought twice, even
+  // before the site's cached pages catch up. Fails closed: if Stripe can't
+  // be asked, don't risk selling a piece that's already gone.
+  let paid: Set<string>;
+  try {
+    paid = await getPaidSlugs();
+  } catch (err) {
+    console.error("Sold check failed at checkout", {
+      error: err instanceof Error ? err.message : err,
+    });
+    return NextResponse.json(
+      { error: "Checkout is temporarily unavailable. Please try again." },
+      { status: 503 },
+    );
   }
 
   const origin = request.nextUrl.origin;
@@ -44,7 +67,7 @@ export async function POST(request: NextRequest) {
         { status: 400 },
       );
     }
-    if (artwork.sold) {
+    if (artwork.sold || paid.has(artwork.slug)) {
       return NextResponse.json(
         { error: `${artwork.title} has sold` },
         { status: 409 },
@@ -70,6 +93,8 @@ export async function POST(request: NextRequest) {
   const session = await getStripe().checkout.sessions.create({
     mode: "payment",
     line_items: lineItems,
+    // Read back by getPaidSlugs to mark these pieces sold once paid.
+    metadata: { slugs: lineItems.map((li) => li.price_data.product_data.metadata.slug).join(",") },
     shipping_address_collection: { allowed_countries: ["US"] },
     shipping_options: [
       {

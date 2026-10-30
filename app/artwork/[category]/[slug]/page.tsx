@@ -10,6 +10,11 @@ import {
   getArtwork,
   seriesList,
 } from "../../../lib/artwork";
+import { withLiveSold } from "../../../lib/sold";
+
+// Sold pieces come from Stripe; the sale webhook refreshes pages right away,
+// and this catches anything it misses (refunds, a failed webhook).
+export const revalidate = 3600;
 
 export function generateStaticParams() {
   return artworks.map((a) => ({ category: a.category, slug: a.slug }));
@@ -50,8 +55,9 @@ export default async function ArtworkDetail({
   params: Promise<{ category: string; slug: string }>;
 }) {
   const { category, slug } = await params;
-  const a = getArtwork(slug);
-  if (!a || a.category !== category) notFound();
+  const found = getArtwork(slug);
+  if (!found || found.category !== category) notFound();
+  const [a] = await withLiveSold([found]);
 
   const c = categories.find((c) => c.slug === a.category)!;
   const s = a.series ? seriesList.find((s) => s.slug === a.series) : undefined;
