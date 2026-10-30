@@ -18,7 +18,7 @@ export function Footer() {
               width={608}
               height={766}
               unoptimized
-              className='h-[7.2rem] w-auto transition-opacity duration-150 group-hover:opacity-0 group-active:opacity-0'
+              className='h-[7.2rem] w-auto transition-opacity duration-150 group-hover:opacity-0'
             />
             <Image
               src='/images/logo-with-text-inverted.svg'
@@ -27,7 +27,7 @@ export function Footer() {
               width={608}
               height={766}
               unoptimized
-              className='absolute inset-0 h-full w-full opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-active:opacity-100'
+              className='absolute inset-0 h-full w-full opacity-0 transition-opacity duration-150 group-hover:opacity-100'
             />
           </Link>
         </div>

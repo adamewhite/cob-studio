@@ -53,11 +53,10 @@ export function Nav() {
             transition: 'transform 300ms cubic-bezier(0.4, 0, 0.2, 1)',
           }}
         >
-          {/* Plain <a>, not next/link: on iOS (Firefox always, Safari often)
-              the client-side navigation home stalled after the tap registered.
-              A full page load is reliable everywhere. */}
-          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-          <a
+          {/* No pressed-state (:active) logo swap: iOS treats an opacity fade
+              that starts mid-tap as revealed hover content and drops the
+              click, so the logo took many taps to go home on iPhone. */}
+          <Link
             href='/'
             aria-label='Congress of Beauty — home'
             className='group relative block origin-left will-change-transform'
@@ -73,7 +72,7 @@ export function Nav() {
               height={766}
               loading='eager'
               unoptimized
-              className='h-24 w-auto transition-opacity duration-150 group-hover:opacity-0 group-active:opacity-0 sm:h-[7.2rem]'
+              className='h-24 w-auto transition-opacity duration-150 group-hover:opacity-0 sm:h-[7.2rem]'
             />
             <Image
               src='/images/logo-with-text-inverted.svg'
@@ -83,9 +82,9 @@ export function Nav() {
               height={766}
               loading='eager'
               unoptimized
-              className='absolute inset-0 h-full w-full opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-active:opacity-100'
+              className='absolute inset-0 h-full w-full opacity-0 transition-opacity duration-150 group-hover:opacity-100'
             />
-          </a>
+          </Link>
 
           <nav className='hidden items-center gap-8 text-lg sm:flex'>
             <ArtworkMenu />
