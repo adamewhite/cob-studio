@@ -225,8 +225,12 @@ These pieces now show as sold on the site automatically.`;
     }
   }
 
-  if (event.type === "checkout.session.completed") {
-    // Refresh every page so sold pieces show as sold on the next visit.
+  // Refresh every page so a sale shows as sold, and a refund puts the piece
+  // back on sale, on the next visit.
+  if (
+    event.type === "checkout.session.completed" ||
+    event.type === "charge.refunded"
+  ) {
     revalidatePath("/", "layout");
   }
 
