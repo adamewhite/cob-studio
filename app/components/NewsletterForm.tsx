@@ -11,12 +11,13 @@ type Status =
 
 export function NewsletterForm() {
   const [email, setEmail] = useState("");
+  const [honeypot, setHoneypot] = useState("");
   const [status, setStatus] = useState<Status>({ kind: "idle" });
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus({ kind: "submitting" });
-    const result = await subscribeToNewsletter(email);
+    const result = await subscribeToNewsletter(email, honeypot);
     if (result.ok) {
       setStatus({ kind: "success" });
     } else {
@@ -27,14 +28,25 @@ export function NewsletterForm() {
   if (status.kind === "success") {
     return (
       <p className="mt-3 text-base text-ink/70">
-        Thanks — you&apos;re on the list.
+        Almost done — check your inbox for a link to confirm.
       </p>
     );
   }
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="mt-3 flex flex-col gap-2">
+      <form onSubmit={handleSubmit} className="relative mt-3 flex flex-col gap-2">
+        {/* Honeypot: hidden from people, filled in by bots. */}
+        <input
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+          className="absolute -left-[9999px] h-px w-px opacity-0"
+        />
         <input
           type="email"
           required

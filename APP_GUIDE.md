@@ -41,7 +41,7 @@ When adding a real piece: drop image files in `public/images/artwork/<series-or-
 ## Components (`app/components/`)
 
 - `Nav.tsx` — sticky top header, logo + Artwork dropdown (categories + series) + About + Cart. Server component.
-- `Footer.tsx` — 4-col footer with shop links, studio links, newsletter form (form is non-functional). Server component.
+- `Footer.tsx` — 4-col footer with shop links, studio links, newsletter form (`NewsletterForm.tsx`, double opt-in via Resend — see `lib/newsletter.ts`). Server component.
 - `ArtworkCard.tsx` — grid card. Falls back to gradient block when `images` is missing.
 - `Carousel.tsx` — `"use client"`. Detail-page image gallery with prev/next + thumbnails.
 
@@ -60,8 +60,7 @@ These will bite if not fixed before deploying to a case-sensitive filesystem (Ve
 1. **Logo path case.** `Nav.tsx:12` references `/images/cob.svg`; the file is `public/images/COB.svg`. Works locally on macOS, breaks on Linux deploys.
 2. **`formatPrice` parameter is misnamed `cents`** but is actually called with whole dollars (`a.price`). The `Intl.NumberFormat` call treats the number as dollars, so output is correct — just rename the param.
 3. **`Add to cart` button has no handler.** No cart state, no `/cart` route, no Stripe integration yet. Per `ABOUT.md`, Stripe is the assumed direction but not committed.
-4. **Footer newsletter form has no `action` / handler.**
-5. **Botanical image filenames contain spaces** (`Botanical Painting - 01 - Full.jpg`). `lib/artwork.ts` builds the URLs with `encodeURIComponent` so requests are URL-safe — keep that wrapper if you change the filename scheme.
+4. **Botanical image filenames contain spaces** (`Botanical Painting - 01 - Full.jpg`). `lib/artwork.ts` builds the URLs with `encodeURIComponent` so requests are URL-safe — keep that wrapper if you change the filename scheme.
 
 ## What's not built yet
 

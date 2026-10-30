@@ -46,7 +46,7 @@ At https://dashboard.stripe.com/settings/public, set:
 ## Polish before "launching"
 
 ### 3. Test newsletter in production
-Now that the form is live and `RESEND_SEGMENT_ID` is set in Vercel, submit a real signup on cob-studio.com and confirm it lands in Resend → Audience → Contacts (segment: General). Also delete the `test@test.com` contact left over from local testing.
+Signup is double opt-in: the form creates a contact outside the segment and emails a confirmation link (from `news@cob-studio.com`); clicking "Confirm signup" on `/newsletter/confirm` adds them to the General segment and sends a welcome email. On cob-studio.com, sign up with a real address, check both emails arrive (and not in spam), and confirm the contact shows in Resend → Audience → Contacts under General. Also delete the `test@test.com` contact left over from local testing.
 
 ### 4. Search indexing — optional follow-ups
 GSC + Bing are set up; sitemap submitted to both. Indexing typically takes 1–4 weeks for full coverage. Check back in GSC → Pages to see what's indexed.
@@ -69,8 +69,6 @@ The webhook emails you when a sale happens. Steps to fulfill:
 ## Nice-to-haves (not blocking)
 
 - **Custom branded order confirmation email to customer.** Stripe sends a default receipt; can be replaced with a Resend email styled to match the site.
-- **Welcome email on newsletter signup.** Currently signup is silent — adding a one-time welcome email via Resend would feel more intentional.
-- **Newsletter double opt-in.** Single opt-in is fine for US/CAN. Worth revisiting if you ever start collecting EU signups (GDPR).
 - **Inventory backup** — `artwork.ts` is source of truth and is in git. No action needed unless you grow beyond a single source file.
 - **Stripe Claude Code skill** — `npx skills add -y https://docs.stripe.com` if Stripe work expands beyond hosted Checkout.
 
