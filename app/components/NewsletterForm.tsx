@@ -28,7 +28,7 @@ export function NewsletterForm() {
   if (status.kind === "success") {
     return (
       <p className="mt-3 text-base text-ink/70">
-        Almost done — check your inbox for a link to confirm.
+        Thanks — you&apos;re on the list.
       </p>
     );
   }

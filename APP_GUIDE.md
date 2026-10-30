@@ -41,7 +41,7 @@ When adding a real piece: drop image files in `public/images/artwork/<series-or-
 ## Components (`app/components/`)
 
 - `Nav.tsx` — sticky top header, logo + Artwork dropdown (categories + series) + About + Cart. Server component.
-- `Footer.tsx` — 4-col footer with shop links, studio links, newsletter form (`NewsletterForm.tsx`, double opt-in via Resend — see `lib/newsletter.ts`). Server component.
+- `Footer.tsx` — 4-col footer with shop links, studio links, newsletter form (`NewsletterForm.tsx`, adds signups to a Resend segment — see `lib/newsletter.ts`). Server component.
 - `ArtworkCard.tsx` — grid card. Falls back to gradient block when `images` is missing.
 - `Carousel.tsx` — `"use client"`. Detail-page image gallery with prev/next + thumbnails.
 

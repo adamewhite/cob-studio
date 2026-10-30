@@ -46,7 +46,7 @@ At https://dashboard.stripe.com/settings/public, set:
 ## Polish before "launching"
 
 ### 3. Test newsletter in production
-Signup is double opt-in: the form creates a contact outside the segment and emails a confirmation link (from `news@cob-studio.com`); clicking "Confirm signup" on `/newsletter/confirm` adds them to the General segment and sends a welcome email. On cob-studio.com, sign up with a real address, check both emails arrive (and not in spam), and confirm the contact shows in Resend → Audience → Contacts under General. Also delete the `test@test.com` contact left over from local testing.
+Signup adds the email straight to the General segment in Resend; no email is sent. On cob-studio.com, sign up with a real address and confirm the contact shows in Resend → Audience → Contacts under General. Also delete the `test@test.com` contact left over from local testing.
 
 ### 4. Search indexing — optional follow-ups
 GSC + Bing are set up; sitemap submitted to both. Indexing typically takes 1–4 weeks for full coverage. Check back in GSC → Pages to see what's indexed.

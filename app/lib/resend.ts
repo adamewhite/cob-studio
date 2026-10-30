@@ -14,7 +14,6 @@ export function getResend(): Resend {
 }
 
 export const SALE_FROM_EMAIL = "Congress of Beauty <sales@cob-studio.com>";
-export const NEWSLETTER_FROM_EMAIL = "Congress of Beauty <news@cob-studio.com>";
 
 export function getSaleNotificationEmail(): string {
   const to = process.env.SALE_NOTIFICATION_EMAIL;
