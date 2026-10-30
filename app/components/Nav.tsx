@@ -53,7 +53,11 @@ export function Nav() {
             transition: 'transform 300ms cubic-bezier(0.4, 0, 0.2, 1)',
           }}
         >
-          <Link
+          {/* Plain <a>, not next/link: on iOS (Firefox always, Safari often)
+              the client-side navigation home stalled after the tap registered.
+              A full page load is reliable everywhere. */}
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+          <a
             href='/'
             aria-label='Congress of Beauty — home'
             className='group relative block origin-left will-change-transform'
@@ -81,7 +85,7 @@ export function Nav() {
               unoptimized
               className='absolute inset-0 h-full w-full opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-active:opacity-100'
             />
-          </Link>
+          </a>
 
           <nav className='hidden items-center gap-8 text-lg sm:flex'>
             <ArtworkMenu />
