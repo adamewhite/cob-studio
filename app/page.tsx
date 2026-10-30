@@ -28,13 +28,13 @@ export default function Home() {
           aria-label="Congress of Beauty studio"
           className="hero-video h-[70vh] w-full object-cover sm:h-[80vh]"
         >
-          <source src="/videos/hero_video.webm" type="video/webm" />
           <source src="/videos/hero_video.mp4" type="video/mp4" />
+          <source src="/videos/hero_video.webm" type="video/webm" />
         </video>
         <div className="absolute inset-x-0 bottom-0 top-0 flex items-center px-10 sm:top-[4.4rem] sm:px-10">
           <div className="mx-auto flex w-full max-w-7xl flex-col gap-4">
             <div className="surface-panel max-w-md p-5 shadow-xl shadow-ink/10 sm:p-6">
-              <h1 className="max-w-md text-balance text-xl font-medium leading-snug tracking-tight text-ink/60 sm:text-2xl">
+              <h1 className="max-w-md text-balance text-xl font-normal leading-snug tracking-tight text-ink/60 sm:text-2xl">
                 Original work from Congress of Beauty — paintings, drawings, and
                 cast sculpture, made by hand.
               </h1>
