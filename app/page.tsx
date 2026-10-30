@@ -6,6 +6,7 @@ import {
   artworks,
   categories,
   getArtworksByCategory,
+  getThumbnail,
 } from "./lib/artwork";
 import { withLiveSold } from "./lib/sold";
 
@@ -52,8 +53,8 @@ export default async function Home() {
           <div className="mx-auto flex w-full max-w-7xl flex-col gap-4">
             <div className="surface-panel max-w-md p-5 shadow-xl shadow-ink/10 sm:p-6">
               <h1 className="max-w-md text-balance text-xl font-normal leading-snug tracking-tight text-ink/60 sm:text-2xl">
-                Original work from Congress of Beauty — paintings and drawings,
-                made by hand.
+                Paintings, drawings and sculpture made by hand in the mountains
+                of Maine.
               </h1>
             </div>
             <div className="surface-panel flex max-w-md flex-col gap-3 p-5 shadow-xl shadow-ink/10 sm:flex-row sm:p-6">
@@ -123,8 +124,10 @@ export default async function Home() {
         </h2>
         <div className={`grid gap-6 ${collectionCols}`}>
           {categories.map((c) => {
-              const cover =
-                c.cover ?? getArtworksByCategory(c.slug)[0]?.images?.[0];
+              // The grid thumbnail is cropped with the piece centered, which
+              // holds up when the card crops it again to 3:2.
+              const first = getArtworksByCategory(c.slug)[0];
+              const cover = c.cover ?? (first && getThumbnail(first));
               return (
                 <Link
                   key={c.slug}

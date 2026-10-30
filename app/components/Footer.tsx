@@ -30,9 +30,6 @@ export function Footer() {
               className='absolute inset-0 h-full w-full opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-active:opacity-100'
             />
           </Link>
-          <p className='mt-3 max-w-xs text-base text-ink/60'>
-            An art studio from Maine.
-          </p>
         </div>
 
         <div>

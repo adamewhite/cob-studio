@@ -31,7 +31,8 @@ export default function About() {
         the studio.
       </p>
       <p className='mt-10 text-ink/70'>
-        The studio produces original framed paintings and drawings.
+        The studio produces original paintings, each framed, and drawings on
+        paper.
       </p>
       <p className='mt-4 text-ink/70'>
         Every piece sold here is made by hand in the studio. Originals are

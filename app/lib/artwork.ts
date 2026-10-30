@@ -46,7 +46,7 @@ const allCategories: {
   {
     slug: 'drawings',
     title: 'Drawings',
-    blurb: 'Original framed drawings on paper.',
+    blurb: 'Original drawings on paper.',
   },
   {
     slug: 'sculpture',
@@ -118,7 +118,7 @@ const drawings: Artwork[] = Array.from({ length: 19 }, (_, i) => {
     slug: `drawing-no-${n}`,
     title: `Drawing No. ${n}`,
     category: 'drawings',
-    medium: 'Graphite on paper, framed',
+    medium: 'Graphite on paper',
     dimensions: '11" × 14"',
     year: 2025,
     price: 145,
