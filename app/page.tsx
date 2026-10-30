@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Accent } from "./components/Accent";
+import { AccentCarousel } from "./components/AccentCarousel";
 import { ArtworkCard } from "./components/ArtworkCard";
 import {
   artworks,
@@ -34,24 +34,21 @@ export default function Home() {
         <div className="absolute inset-x-0 bottom-0 top-0 flex items-center px-10 sm:top-[4.4rem] sm:px-10">
           <div className="mx-auto flex w-full max-w-7xl flex-col gap-4">
             <div className="surface-panel max-w-md p-5 shadow-xl shadow-ink/10 sm:p-6">
-              <h1 className="text-balance text-4xl font-medium leading-tight tracking-tight sm:text-5xl">
-                Live with beauty every day.
-              </h1>
-              <p className="mt-6 max-w-md text-balance text-ink/60">
+              <h1 className="max-w-md text-balance text-xl font-medium leading-snug tracking-tight text-ink/60 sm:text-2xl">
                 Original work from Congress of Beauty — paintings, drawings, and
                 cast sculpture, made by hand.
-              </p>
+              </h1>
             </div>
-            <div className="surface-panel flex max-w-md flex-col gap-3 p-5 shadow-xl shadow-ink/10 sm:inline-flex sm:max-w-none sm:flex-row sm:self-start sm:p-6">
+            <div className="surface-panel flex max-w-md flex-col gap-3 p-5 shadow-xl shadow-ink/10 sm:flex-row sm:p-6">
               <Link
                 href="/artwork"
-                className="bg-pine px-6 py-3.5 text-center text-base text-bright hover:bg-pine/80"
+                className="bg-pine px-6 py-3.5 text-center text-base text-bright hover:bg-pine/80 sm:flex-1"
               >
                 Shop the studio
               </Link>
               <Link
                 href="/about"
-                className="border border-pine px-6 py-3.5 text-center text-base hover:bg-pine/5"
+                className="border border-pine px-6 py-3.5 text-center text-base hover:bg-pine/5 sm:flex-1"
               >
                 About the work
               </Link>
@@ -76,23 +73,22 @@ export default function Home() {
 
       <section className="bg-accent">
         <div className="mx-auto max-w-7xl px-6 py-8 sm:py-12">
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-6">
-            <Accent
-              name="sumac"
-              className="aspect-[3/4]"
-              sizes="(min-width: 1280px) 400px, (min-width: 640px) 33vw, 50vw"
-            />
-            <Accent
-              name="reishi"
-              className="aspect-[3/4]"
-              sizes="(min-width: 1280px) 400px, (min-width: 640px) 33vw, 50vw"
-            />
-            <Accent
-              name="shellCreekGold"
-              className="hidden aspect-[3/4] sm:block"
-              sizes="(min-width: 1280px) 400px, 33vw"
-            />
-          </div>
+          <AccentCarousel
+            names={[
+              "sumac",
+              "reishi",
+              "shellCreekGold",
+              "applesField",
+              "puffball",
+              "lichen",
+              "polyporeLog",
+              "bolete",
+              "shellCreekDark",
+              "applesNight",
+              "irisesWrapped",
+              "overlook",
+            ]}
+          />
           <p className="mt-4 max-w-xl text-sm text-ink/50">
             Gathered from the studio&apos;s corner of Maine — the woods, the
             orchard, and work finding its way back outside.
