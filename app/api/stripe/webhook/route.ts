@@ -6,6 +6,7 @@ import {
   SALE_FROM_EMAIL,
   getSaleNotificationEmail,
 } from "../../../lib/resend";
+import { SITE_ORIGIN } from "../../../lib/site";
 
 export const runtime = "nodejs";
 
@@ -125,12 +126,15 @@ Mark these slugs as sold:true in app/lib/artwork.ts and redeploy.`;
     const slugList = items.map((i) => i.slug).filter(Boolean).join(", ");
 
     try {
-      await getResend().emails.send({
-        from: SALE_FROM_EMAIL,
-        to: getSaleNotificationEmail(),
-        subject: `Sale: ${slugList || session.id}`,
-        text,
-      });
+      await getResend().emails.send(
+        {
+          from: SALE_FROM_EMAIL,
+          to: getSaleNotificationEmail(),
+          subject: `Sale: ${slugList || session.id}`,
+          text,
+        },
+        { idempotencyKey: `sale-notification/${session.id}` },
+      );
     } catch (err) {
       // Never return 500 just because the notification email failed: the
       // payment already succeeded, and a 500 here causes Stripe to retry,
@@ -140,6 +144,61 @@ Mark these slugs as sold:true in app/lib/artwork.ts and redeploy.`;
         slugList,
         error: err instanceof Error ? err.message : err,
       });
+    }
+
+    if (customer?.email) {
+      const greeting = customer.name
+        ? `Hi ${customer.name.split(" ")[0]},`
+        : "Hi,";
+      const customerLines = items
+        .map(
+          (i) =>
+            `  • ${i.name} — ${formatAmount(i.amount ?? 0, i.currency ?? "usd")}`,
+        )
+        .join("\n");
+
+      const confirmation = `${greeting}
+
+Thank you for your order from Congress of Beauty.
+
+${customerLines}
+
+Total: ${total}
+
+It ships within a week to:
+${shipTo}
+
+If anything looks wrong, just reply to this email.
+
+— Congress of Beauty
+${SITE_ORIGIN}`;
+
+      try {
+        // Idempotency key keeps Stripe retries (including after a cold start
+        // clears processedEventIds) from emailing the customer twice.
+        const sent = await getResend().emails.send(
+          {
+            from: SALE_FROM_EMAIL,
+            to: customer.email,
+            replyTo: getSaleNotificationEmail(),
+            subject: "Your Congress of Beauty order",
+            text: confirmation,
+          },
+          { idempotencyKey: `order-confirmation/${session.id}` },
+        );
+        // Resend usually reports failures in the result rather than throwing.
+        if (sent.error) {
+          console.error("Order confirmation email failed", {
+            sessionId: session.id,
+            error: sent.error,
+          });
+        }
+      } catch (err) {
+        console.error("Order confirmation email failed", {
+          sessionId: session.id,
+          error: err instanceof Error ? err.message : err,
+        });
+      }
     }
   }
 
