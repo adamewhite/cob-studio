@@ -120,43 +120,33 @@ const drawings: Artwork[] = Array.from({ length: 19 }, (_, i) => {
   };
 });
 
-const placeholders: Artwork[] = [
+const sculptureFile = (name: string) =>
+  `/images/artwork/sculpture/${encodeURIComponent(`Sculpture - ${name}.jpg`)}`;
+
+// TODO: confirm medium, dimensions, and price with John.
+const sculptures: Artwork[] = [
   {
-    slug: 'mushroom-cast-no-1',
-    title: 'Mushroom Cast No. 1',
+    slug: 'shells',
+    title: 'Shells',
     category: 'sculpture',
     medium: 'Cast resin, hand-finished',
     dimensions: '8" wide × 4" tall',
     year: 2025,
     price: 275,
-    gradient: 'from-yellow-100 via-orange-200 to-red-300',
-  },
-  {
-    slug: 'mushroom-cast-no-2',
-    title: 'Mushroom Cast No. 2',
-    category: 'sculpture',
-    medium: 'Cast bronze, patinated',
-    dimensions: '8" wide × 4" tall',
-    year: 2025,
-    price: 275,
-    gradient: 'from-lime-100 via-green-200 to-emerald-300',
-  },
-  {
-    slug: 'mushroom-cast-no-3',
-    title: 'Mushroom Cast No. 3',
-    category: 'sculpture',
-    medium: 'Cast resin, hand-finished',
-    dimensions: '8" wide × 4" tall',
-    year: 2025,
-    price: 275,
-    gradient: 'from-cyan-100 via-blue-200 to-indigo-300',
+    images: [
+      { src: sculptureFile('Shells'), alt: 'Pair of cast pink shells' },
+      {
+        src: sculptureFile('Shells - Shelf'),
+        alt: 'Cast shells on a shelf beside a potted jade plant',
+      },
+    ],
   },
 ];
 
 export const artworks: Artwork[] = [
   ...botanicals,
   ...drawings,
-  ...placeholders,
+  ...sculptures,
 ];
 
 export function getArtwork(slug: string): Artwork | undefined {
