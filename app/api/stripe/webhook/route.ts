@@ -6,7 +6,12 @@ import {
   SALE_FROM_EMAIL,
   getSaleNotificationEmail,
 } from "../../../lib/resend";
-import { SITE_ORIGIN } from "../../../lib/site";
+import { getArtwork, getThumbnail } from "../../../lib/artwork";
+import {
+  orderConfirmationHtml,
+  orderConfirmationText,
+} from "../../../lib/orderEmail";
+import { absoluteUrl } from "../../../lib/site";
 
 export const runtime = "nodejs";
 
@@ -71,11 +76,16 @@ export async function POST(request: NextRequest) {
       };
     });
 
-    const formatAmount = (cents: number, currency: string) =>
-      new Intl.NumberFormat("en-US", {
+    // Whole-dollar amounts drop the cents, matching prices on the site.
+    const formatAmount = (cents: number, currency: string) => {
+      const digits = cents % 100 === 0 ? 0 : 2;
+      return new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: currency.toUpperCase(),
+        minimumFractionDigits: digits,
+        maximumFractionDigits: digits,
       }).format(cents / 100);
+    };
 
     const customer = session.customer_details;
     const shipping = session.collected_information?.shipping_details;
@@ -95,17 +105,16 @@ export async function POST(request: NextRequest) {
       session.currency ?? "usd",
     );
 
-    const shipTo = shipping?.address
+    const shipToLines = shipping?.address
       ? [
           shipping.name,
           shipping.address.line1,
           shipping.address.line2,
           `${shipping.address.city ?? ""}, ${shipping.address.state ?? ""} ${shipping.address.postal_code ?? ""}`,
           shipping.address.country,
-        ]
-          .filter(Boolean)
-          .join("\n")
-      : "(no shipping address)";
+        ].filter((line): line is string => Boolean(line))
+      : ["(no shipping address)"];
+    const shipTo = shipToLines.join("\n");
 
     const text = `New sale on Congress of Beauty.
 
@@ -147,31 +156,20 @@ Mark these slugs as sold:true in app/lib/artwork.ts and redeploy.`;
     }
 
     if (customer?.email) {
-      const greeting = customer.name
-        ? `Hi ${customer.name.split(" ")[0]},`
-        : "Hi,";
-      const customerLines = items
-        .map(
-          (i) =>
-            `  • ${i.name} — ${formatAmount(i.amount ?? 0, i.currency ?? "usd")}`,
-        )
-        .join("\n");
-
-      const confirmation = `${greeting}
-
-Thank you for your order from Congress of Beauty.
-
-${customerLines}
-
-Total: ${total}
-
-It ships within a week to:
-${shipTo}
-
-If anything looks wrong, just reply to this email.
-
-— Congress of Beauty
-${SITE_ORIGIN}`;
+      const emailInput = {
+        firstName: customer.name?.split(" ")[0],
+        items: items.map((i) => {
+          const artwork = i.slug ? getArtwork(i.slug) : undefined;
+          const thumb = artwork ? getThumbnail(artwork) : undefined;
+          return {
+            name: i.name,
+            price: formatAmount(i.amount ?? 0, i.currency ?? "usd"),
+            imageUrl: thumb ? absoluteUrl(thumb.src) : undefined,
+          };
+        }),
+        total,
+        shipTo: shipToLines,
+      };
 
       try {
         // Idempotency key keeps Stripe retries (including after a cold start
@@ -182,7 +180,8 @@ ${SITE_ORIGIN}`;
             to: customer.email,
             replyTo: getSaleNotificationEmail(),
             subject: "Your Congress of Beauty order",
-            text: confirmation,
+            html: orderConfirmationHtml(emailInput),
+            text: orderConfirmationText(emailInput),
           },
           { idempotencyKey: `order-confirmation/${session.id}` },
         );
