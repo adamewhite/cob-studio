@@ -9,7 +9,6 @@ import { Nav } from './components/Nav';
 import { Footer } from './components/Footer';
 import { SITE_ORIGIN } from './lib/site';
 import { TopLoader } from './components/TopLoader';
-import { TapDebug } from './components/TapDebug';
 
 const instrumentSans = Instrument_Sans({
   variable: '--font-sans',
@@ -55,7 +54,6 @@ export default function RootLayout({
     >
       <body className='flex min-h-dvh flex-col text-ink'>
         <TopLoader />
-        <TapDebug />
         <CartProvider>
           <div
             role='region'
