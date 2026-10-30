@@ -24,12 +24,19 @@ export default function Home() {
           loop
           playsInline
           preload="auto"
-          poster="/images/hero_poster.jpg"
+          poster="/images/hero-poster.jpg"
           aria-label="Congress of Beauty studio"
-          className="hero-video h-[70vh] w-full object-cover sm:h-[80vh]"
+          className="h-[70vh] w-full object-cover sm:h-[80vh]"
         >
-          <source src="/videos/hero_video.mp4" type="video/mp4" />
-          <source src="/videos/hero_video.webm" type="video/webm" />
+          {/* Phones get a lighter 720p file; H.264 before WebM so iOS uses
+              hardware decoding. Color grading is baked into the files. */}
+          <source
+            src="/videos/hero-720.mp4"
+            type="video/mp4"
+            media="(max-width: 767px)"
+          />
+          <source src="/videos/hero-1080.mp4" type="video/mp4" />
+          <source src="/videos/hero-1080.webm" type="video/webm" />
         </video>
         <div className="absolute inset-x-0 bottom-0 top-0 flex items-center px-10 sm:top-[4.4rem] sm:px-10">
           <div className="mx-auto flex w-full max-w-7xl flex-col gap-4">

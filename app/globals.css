@@ -72,6 +72,3 @@ h6,
   );
 }
 
-.hero-video {
-  filter: saturate(1.25) brightness(0.9);
-}
