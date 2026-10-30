@@ -20,6 +20,8 @@ export type Artwork = {
   price: number;
   description?: string;
   images?: ArtworkImage[];
+  // Uniformly composed grid crop from scripts/make-thumbnails.mjs.
+  thumbnail?: ArtworkImage;
   gradient?: string;
   sold?: boolean;
 };
@@ -66,7 +68,7 @@ export const seriesList: { slug: Series; title: string; blurb: string }[] = [
 const botanicals: Artwork[] = Array.from({ length: 12 }, (_, i) => {
   const n = i + 1;
   const padded = String(n).padStart(2, '0');
-  const file = (variant: 'Full' | 'Detail' | 'Shelf' | 'Deck') =>
+  const file = (variant: 'Full' | 'Detail' | 'Shelf' | 'Deck' | 'Thumb') =>
     `/images/artwork/botanical/${encodeURIComponent(
       `Botanical Painting - ${padded} - ${variant}.jpg`,
     )}`;
@@ -80,6 +82,7 @@ const botanicals: Artwork[] = Array.from({ length: 12 }, (_, i) => {
     framedDimensions: '12" × 18"',
     year: 2025,
     price: 325,
+    thumbnail: { src: file('Thumb'), alt: `Botanical No. ${n}, framed` },
     images: [
       { src: file('Deck'), alt: `Botanical No. ${n}, framed on a deck` },
       { src: file('Shelf'), alt: `Botanical No. ${n}, framed on a shelf` },
@@ -107,6 +110,7 @@ const drawings: Artwork[] = Array.from({ length: 19 }, (_, i) => {
     dimensions: '11" × 14"',
     year: 2025,
     price: 225,
+    thumbnail: { src: file(' - Thumb'), alt: `Drawing No. ${n}` },
     images: [
       { src: file(''), alt: `Drawing No. ${n}` },
       ...(drawingsWithoutDetail.has(n)
@@ -169,6 +173,10 @@ export function getArtworksBySeries(series: Series): Artwork[] {
 
 export function getCoverImage(artwork: Artwork): ArtworkImage | undefined {
   return artwork.images?.[0];
+}
+
+export function getThumbnail(artwork: Artwork): ArtworkImage | undefined {
+  return artwork.thumbnail ?? getCoverImage(artwork);
 }
 
 export function formatPrice(cents: number): string {

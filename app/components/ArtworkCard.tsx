@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Artwork, formatPrice, getCoverImage } from "../lib/artwork";
+import { Artwork, formatPrice, getThumbnail } from "../lib/artwork";
 
 export function ArtworkCard({ artwork }: { artwork: Artwork }) {
-  const cover = getCoverImage(artwork);
+  const cover = getThumbnail(artwork);
   const href = `/artwork/${artwork.category}/${artwork.slug}`;
 
   return (
