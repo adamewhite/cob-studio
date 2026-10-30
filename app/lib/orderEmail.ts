@@ -12,7 +12,6 @@ export type OrderEmailItem = {
 };
 
 export type OrderEmailInput = {
-  firstName?: string;
   items: OrderEmailItem[];
   total: string;
   shipTo: string[];
@@ -37,15 +36,14 @@ function escapeHtml(value: string): string {
 }
 
 export function orderConfirmationText({
-  firstName,
   items,
   total,
   shipTo,
 }: OrderEmailInput): string {
   const lines = items.map((i) => `  • ${i.name} — ${i.price}`).join("\n");
-  return `${firstName ? `Hi ${firstName},` : "Hi,"}
+  return `Thank you for your order.
 
-Thank you for your order from Congress of Beauty.
+Your piece will be on its way soon. Here's what you purchased.
 
 ${lines}
 
@@ -61,12 +59,10 @@ ${SITE_ORIGIN}`;
 }
 
 export function orderConfirmationHtml({
-  firstName,
   items,
   total,
   shipTo,
 }: OrderEmailInput): string {
-  const greeting = firstName ? `Hi ${escapeHtml(firstName)},` : "Hi,";
   const logoUrl = absoluteUrl("/images/email/logo-red.png");
 
   const itemRows = items
@@ -108,8 +104,8 @@ export function orderConfirmationHtml({
           </tr>
           <tr>
             <td style="padding: 24px 40px 8px; text-align: center;">
-              <h1 style="margin: 0; font-family: ${SERIF}; font-size: 26px; font-weight: normal; color: ${INK};">Thank you for your order</h1>
-              <p style="margin: 16px 0 0; font-family: ${SANS}; font-size: 15px; line-height: 1.6; color: ${MUTED};">${greeting} your piece is on its way soon. Here&rsquo;s what you bought.</p>
+              <h1 style="margin: 0; font-family: ${SERIF}; font-size: 26px; font-weight: normal; color: ${INK};">Thank you for your order.</h1>
+              <p style="margin: 16px 0 0; font-family: ${SANS}; font-size: 15px; line-height: 1.6; color: ${MUTED};">Your piece will be on its way soon. Here&rsquo;s what you purchased.</p>
             </td>
           </tr>
           <tr>

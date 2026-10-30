@@ -106,8 +106,8 @@ export async function POST(request: NextRequest) {
       },
     ],
     // TODO: re-enable once the Maine Revenue Services sales tax account is
-    // registered (sole proprietor + EIN) and added under Tax > Registrations
-    // in the Stripe Dashboard.
+    // issued (sole proprietor, under the owner's SSN) and added under
+    // Tax > Registrations in the Stripe Dashboard.
     automatic_tax: { enabled: false },
     success_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${origin}/checkout/cancel`,

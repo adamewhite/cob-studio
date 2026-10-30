@@ -181,7 +181,6 @@ These pieces now show as sold on the site automatically.`;
 
     if (customer?.email && doubleSold.length === 0) {
       const emailInput = {
-        firstName: customer.name?.split(" ")[0],
         items: items.map((i) => {
           const artwork = i.slug ? getArtwork(i.slug) : undefined;
           const thumb = artwork ? getThumbnail(artwork) : undefined;
