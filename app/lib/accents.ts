@@ -16,7 +16,11 @@ export type AccentName =
   | "applesNight"
   | "applesNight2"
   | "irisesWrapped"
-  | "overlook";
+  | "overlook"
+  | "irisesBundled"
+  | "boulder"
+  | "polyporeHostas"
+  | "barnWindow";
 
 export const accents: Record<AccentName, { src: string; alt: string }> = {
   sumac: {
@@ -90,5 +94,21 @@ export const accents: Record<AccentName, { src: string; alt: string }> = {
   overlook: {
     src: "/images/accents/accent-8619.jpg",
     alt: "The studio dog looking over the river valley from a granite ledge",
+  },
+  irisesBundled: {
+    src: "/images/accents/accent-irises-bundled.jpg",
+    alt: "Iris divisions bundled in cloth and string on a dark worktable",
+  },
+  boulder: {
+    src: "/images/accents/accent-boulder.jpg",
+    alt: "A lichen-covered granite boulder with a weathered hollow",
+  },
+  polyporeHostas: {
+    src: "/images/accents/accent-polypore-hostas.jpg",
+    alt: "Pink cast polypore sculpture on a concrete ledge above bright hostas",
+  },
+  barnWindow: {
+    src: "/images/accents/accent-barn-window.jpg",
+    alt: "A dark barn window looking out on fall foliage and a white roof",
   },
 };
