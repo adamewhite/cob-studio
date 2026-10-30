@@ -33,8 +33,11 @@ export function Nav() {
   return (
     <header
       className='relative z-40 h-32 sm:sticky sm:top-0 sm:h-16'
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      // Mouse only: on touch screens a tap fires a synthetic mouseenter, and
+      // expanding the header mid-tap makes iOS treat the tap as a hover and
+      // drop the click, so the logo wouldn't navigate home.
+      onPointerEnter={(e) => e.pointerType === 'mouse' && setHovered(true)}
+      onPointerLeave={(e) => e.pointerType === 'mouse' && setHovered(false)}
     >
       <div
         className='absolute inset-x-0 top-0 h-32 origin-top border-b border-ink/10 bg-paper will-change-transform sm:h-[8.4rem]'

@@ -8,6 +8,7 @@ import { CartProvider } from './components/CartContext';
 import { Nav } from './components/Nav';
 import { Footer } from './components/Footer';
 import { SITE_ORIGIN } from './lib/site';
+import { TopLoader } from './components/TopLoader';
 
 const instrumentSans = Instrument_Sans({
   variable: '--font-sans',
@@ -52,6 +53,7 @@ export default function RootLayout({
       className={`${instrumentSans.variable} ${prozaLibre.variable} antialiased`}
     >
       <body className='flex min-h-dvh flex-col text-ink'>
+        <TopLoader />
         <CartProvider>
           <div
             role='region'
