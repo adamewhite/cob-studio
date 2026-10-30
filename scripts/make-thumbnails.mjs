@@ -5,7 +5,7 @@
 // Usage: node scripts/make-thumbnails.mjs
 
 import sharp from 'sharp';
-import { readdir } from 'node:fs/promises';
+import { readdir, rm } from 'node:fs/promises';
 import path from 'node:path';
 
 const ROOT = 'public/images/artwork';
@@ -16,23 +16,28 @@ const OUT_H = 1500;
 // high as the tightest-cropped source photo allows, so none get clamped.
 // paper: optional target paper color as [R, G, B] ratios to R; each thumbnail
 // is white-balanced so its paper matches, evening out yellow casts.
+// detect: 'brightness' finds bright paper on a dark background; 'warmth' finds
+// cream paper and a gold frame against a cool gray wall.
 const sources = [
-  { dir: 'drawings', fill: 0.93, paper: [1, 0.97, 0.81], match: /^Drawing - (\d\d)\.jpg$/, name: (n) => `Drawing - ${n} - Thumb.jpg` },
-  { dir: 'botanical', fill: 0.86, match: /^Botanical Painting - (\d\d) - Deck\.jpg$/, name: (n) => `Botanical Painting - ${n} - Thumb.jpg` },
+  { dir: 'drawings', fill: 0.93, detect: 'brightness', paper: [1, 0.97, 0.81], match: /^Drawing - (\d\d)\.jpg$/, name: (n) => `Drawing - ${n} - Thumb.jpg` },
+  { dir: 'botanical', fill: 0.95, detect: 'warmth', match: /^Botanical Painting - (\d\d) - Shelf\.jpg$/, name: (n) => `Botanical Painting - ${n} - Thumb.jpg` },
 ];
 
-// Bounding box of the largest bright region, via row/column profiles on a
-// downscaled grayscale copy.
-async function findArtwork(file) {
+// Bounding box of the artwork, via row/column profiles on a downscaled copy
+// reduced to one channel: luminance, or red minus blue for warmth.
+async function findArtwork(file, detect) {
   const SCALE_W = 400;
-  const { data, info } = await sharp(file)
-    .rotate()
-    .resize(SCALE_W)
-    .grayscale()
-    .blur(1.5)
-    .raw()
-    .toBuffer({ resolveWithObject: true });
+  const img = sharp(file).rotate().resize(SCALE_W).blur(1.5).removeAlpha();
+  const { data: rgb, info } = await img.raw().toBuffer({ resolveWithObject: true });
   const { width: w, height: h } = info;
+  const data = new Uint8Array(w * h);
+  for (let i = 0; i < w * h; i++) {
+    const [r, g, b] = [rgb[i * 3], rgb[i * 3 + 1], rgb[i * 3 + 2]];
+    data[i] =
+      detect === 'warmth'
+        ? Math.max(0, Math.min(255, 128 + 2 * (r - b)))
+        : 0.299 * r + 0.587 * g + 0.114 * b;
+  }
 
   // Threshold halfway between the dark background and bright paper.
   const sorted = Uint8Array.from(data).sort();
@@ -50,8 +55,10 @@ async function findArtwork(file) {
       }
     }
   }
+  // Props beside the frame can be warm too, so warmth needs a stricter share.
+  const share = detect === 'warmth' ? 0.55 : 0.4;
   const span = (profile, len) => {
-    const min = len * 0.4;
+    const min = len * share;
     let a = profile.findIndex((v) => v > min);
     let b = profile.length - 1 - [...profile].reverse().findIndex((v) => v > min);
     return [a, b];
@@ -76,11 +83,11 @@ async function paperColor(buf) {
   return ch.map((a) => a.sort((x, y) => x - y)[a.length >> 1]);
 }
 
-async function makeThumb(src, out, fill, paper) {
+async function makeThumb(src, out, { fill, detect, paper }) {
   const meta = await sharp(src).rotate().toBuffer({ resolveWithObject: true });
   const W = meta.info.width;
   const H = meta.info.height;
-  const box = await findArtwork(src);
+  const box = await findArtwork(src, detect);
   const k = W / box.w;
   const ax0 = box.x0 * k, ax1 = box.x1 * k, ay0 = box.y0 * k, ay1 = box.y1 * k;
   const cx = (ax0 + ax1) / 2;
@@ -114,13 +121,17 @@ async function makeThumb(src, out, fill, paper) {
   return fit < 1 ? ` (clamped to photo, ${Math.round(fit * 100)}%)` : '';
 }
 
-for (const { dir, fill, paper, match, name } of sources) {
+for (const { dir, match, name, ...opts } of sources) {
   const full = path.join(ROOT, dir);
   for (const f of (await readdir(full)).sort()) {
     const m = f.match(match);
     if (!m) continue;
     const out = path.join(full, name(m[1]));
-    const note = await makeThumb(path.join(full, f), out, fill, paper);
+    const note = await makeThumb(path.join(full, f), out, opts);
     console.log(`${out}${note}`);
   }
 }
+
+// Thumbnail filenames don't change when regenerated, so drop the dev server's
+// optimized-image cache to keep it from serving stale versions.
+await rm('.next/dev/cache/images', { recursive: true, force: true });
