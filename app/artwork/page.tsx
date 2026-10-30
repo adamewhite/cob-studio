@@ -7,7 +7,7 @@ import { withLiveSold } from "../lib/sold";
 export const metadata = {
   title: "Artwork",
   description:
-    "Original paintings, drawings, and cast sculpture from Congress of Beauty.",
+    "Original paintings and drawings from Congress of Beauty.",
 };
 
 // Sold pieces come from Stripe; the sale webhook refreshes pages right away,

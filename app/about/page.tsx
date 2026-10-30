@@ -3,7 +3,7 @@ import { Accent } from '../components/Accent';
 export const metadata = {
   title: 'About',
   description:
-    'Congress of Beauty is the studio of John Orth — original paintings, drawings, and cast sculpture.',
+    'Congress of Beauty is the studio of John Orth — original paintings and drawings.',
 };
 
 export default function About() {
@@ -27,12 +27,11 @@ export default function About() {
       />
       <p className='mt-10 text-ink/70'>
         The rhythms of the seasons, the flora and fauna, and the quality of
-        light all find their way into the paintings, drawings, and sculpture
-        produced by the studio.
+        light all find their way into the paintings and drawings produced by
+        the studio.
       </p>
       <p className='mt-10 text-ink/70'>
-        The studio produces original framed paintings and drawings, alongside
-        small editions of cast tabletop sculpture.
+        The studio produces original framed paintings and drawings.
       </p>
       <p className='mt-4 text-ink/70'>
         Every piece sold here is made by hand in the studio. Originals are

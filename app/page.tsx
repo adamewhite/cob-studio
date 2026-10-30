@@ -52,8 +52,8 @@ export default async function Home() {
           <div className="mx-auto flex w-full max-w-7xl flex-col gap-4">
             <div className="surface-panel max-w-md p-5 shadow-xl shadow-ink/10 sm:p-6">
               <h1 className="max-w-md text-balance text-xl font-normal leading-snug tracking-tight text-ink/60 sm:text-2xl">
-                Original work from Congress of Beauty — paintings, drawings, and
-                cast sculpture, made by hand.
+                Original work from Congress of Beauty — paintings and drawings,
+                made by hand.
               </h1>
             </div>
             <div className="surface-panel flex max-w-md flex-col gap-3 p-5 shadow-xl shadow-ink/10 sm:flex-row sm:p-6">

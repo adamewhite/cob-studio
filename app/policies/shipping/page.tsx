@@ -40,8 +40,8 @@ export default function Shipping() {
       <h2 className="mt-10 text-xl font-medium tracking-tight">How we ship</h2>
       <p className="mt-3 text-ink/70">
         We ship via USPS with tracking included on every order. Paintings and
-        drawings are shipped flat or rolled depending on size. Framed work and
-        sculpture are packed with extra protection appropriate to the piece.
+        drawings are shipped flat or rolled depending on size. Framed work is
+        packed with extra protection appropriate to the piece.
       </p>
 
       <h2 className="mt-10 text-xl font-medium tracking-tight">

@@ -25,19 +25,19 @@ export const metadata: Metadata = {
     default: 'Congress of Beauty',
     template: '%s · Congress of Beauty',
   },
-  description: 'Original paintings, drawings, and cast sculpture.',
+  description: 'Original paintings and drawings.',
   metadataBase: new URL(SITE_ORIGIN),
   openGraph: {
     type: 'website',
     siteName: 'Congress of Beauty',
     title: 'Congress of Beauty',
-    description: 'Original paintings, drawings, and cast sculpture.',
+    description: 'Original paintings and drawings.',
     url: SITE_ORIGIN,
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Congress of Beauty',
-    description: 'Original paintings, drawings, and cast sculpture.',
+    description: 'Original paintings and drawings.',
   },
 };
 

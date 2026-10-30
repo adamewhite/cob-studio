@@ -3,7 +3,7 @@ import Image from "next/image";
 export const metadata = {
   title: "Contact",
   description:
-    "Get in touch with Congress of Beauty — original paintings, drawings, and cast sculpture by John Orth.",
+    "Get in touch with Congress of Beauty — original paintings and drawings by John Orth.",
 };
 
 export default function Contact() {
