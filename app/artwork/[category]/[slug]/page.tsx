@@ -153,6 +153,9 @@ export default async function ArtworkDetail({
               <dd>One of one</dd>
             </div>
           </dl>
+          <p className="mt-6 text-base text-ink/70">
+            Signed by the artist and stamped with the studio seal.
+          </p>
         </div>
       </div>
     </div>
