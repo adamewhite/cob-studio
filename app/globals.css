@@ -72,3 +72,10 @@ h6,
   );
 }
 
+/* Belt and braces for iOS/WebKit: never draw native controls on the
+   decorative hero video, even if it somehow receives a tap. */
+.hero-video::-webkit-media-controls,
+.hero-video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+}

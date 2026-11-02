@@ -37,7 +37,11 @@ export default async function Home() {
           preload="auto"
           poster="/images/hero-poster.jpg"
           aria-label="Congress of Beauty studio"
-          className="h-[70vh] w-full object-cover sm:h-[80vh]"
+          // Purely decorative: ignore taps so iOS never shows its native
+          // controls (timeline, fullscreen, PiP, AirPlay) over the hero.
+          disablePictureInPicture
+          disableRemotePlayback
+          className="hero-video pointer-events-none h-[70vh] w-full object-cover sm:h-[80vh]"
         >
           {/* Phones get a lighter 720p file; H.264 before WebM so iOS uses
               hardware decoding. Color grading is baked into the files. */}
