@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Accent } from "../../components/Accent";
+import { AccentStripe } from "../../components/AccentStripe";
 import { ArtworkCard } from "../../components/ArtworkCard";
 import { Category, categories, getArtworksByCategory } from "../../lib/artwork";
 import { withLiveSold } from "../../lib/sold";
@@ -84,6 +85,9 @@ export default async function CategoryPage({
           <ArtworkCard key={a.slug} artwork={a} />
         ))}
       </div>
+      <AccentStripe
+        index={categories.findIndex((cat) => cat.slug === c.slug) + 1}
+      />
     </div>
   );
 }

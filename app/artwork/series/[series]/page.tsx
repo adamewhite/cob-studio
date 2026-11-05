@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Accent } from "../../../components/Accent";
+import { AccentStripe } from "../../../components/AccentStripe";
 import { ArtworkCard } from "../../../components/ArtworkCard";
 import { Series, getArtworksBySeries, seriesList } from "../../../lib/artwork";
 import { withLiveSold } from "../../../lib/sold";
@@ -67,6 +68,7 @@ export default async function SeriesPage({
           <ArtworkCard key={a.slug} artwork={a} />
         ))}
       </div>
+      <AccentStripe index={3} />
     </div>
   );
 }

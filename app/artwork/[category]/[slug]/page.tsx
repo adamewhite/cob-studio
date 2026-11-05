@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { AccentStripe } from "../../../components/AccentStripe";
 import { AddToCartButton } from "../../../components/AddToCartButton";
 import { Carousel } from "../../../components/Carousel";
 import { ShareButton } from "../../../components/ShareButton";
@@ -158,6 +159,8 @@ export default async function ArtworkDetail({
           </p>
         </div>
       </div>
+      {/* Rotate through the stripes so neighboring pieces don't all match. */}
+      <AccentStripe index={Math.max(0, artworks.indexOf(found))} />
     </div>
   );
 }

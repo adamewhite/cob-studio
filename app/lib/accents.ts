@@ -21,7 +21,11 @@ export type AccentName =
   | "boulder"
   | "polyporeHostas"
   | "barnWindow"
-  | "barnLight";
+  | "barnLight"
+  | "indianPipes"
+  | "barnSlats"
+  | "rainyWindow"
+  | "mountainView";
 
 export const accents: Record<AccentName, { src: string; alt: string }> = {
   sumac: {
@@ -115,5 +119,21 @@ export const accents: Record<AccentName, { src: string; alt: string }> = {
   barnLight: {
     src: "/images/accents/accent-barn-light.jpg",
     alt: "Dappled sunlight across the weathered plank wall of a barn",
+  },
+  indianPipes: {
+    src: "/images/accents/accent-indian-pipes.jpg",
+    alt: "Three ghost-white Indian pipe flowers rising from fallen leaves",
+  },
+  barnSlats: {
+    src: "/images/accents/accent-barn-slats.jpg",
+    alt: "Rough-sawn barn wall boards with dark gaps between them",
+  },
+  rainyWindow: {
+    src: "/images/accents/accent-rainy-window.jpg",
+    alt: "A spattered window looking out on a field and fall trees",
+  },
+  mountainView: {
+    src: "/images/accents/accent-mountain-view.jpg",
+    alt: "Red blueberry barrens above a valley of fall color and blue hills",
   },
 };
