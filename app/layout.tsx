@@ -9,6 +9,7 @@ import { Nav } from './components/Nav';
 import { Footer } from './components/Footer';
 import { SITE_ORIGIN } from './lib/site';
 import { TopLoader } from './components/TopLoader';
+import { SiteChrome } from './components/SiteChrome';
 
 const instrumentSans = Instrument_Sans({
   variable: '--font-sans',
@@ -55,18 +56,22 @@ export default function RootLayout({
       <body className='flex min-h-dvh flex-col text-ink'>
         <TopLoader />
         <CartProvider>
-          <div
-            role='region'
-            aria-label='Announcement'
-            className='bg-pine text-bright'
-          >
-            <div className='mx-auto max-w-7xl px-6 py-2 text-center text-sm'>
-              FREE shipping on U.S. orders.
+          <SiteChrome>
+            <div
+              role='region'
+              aria-label='Announcement'
+              className='bg-pine text-bright'
+            >
+              <div className='mx-auto max-w-7xl px-6 py-2 text-center text-sm'>
+                FREE shipping on U.S. orders.
+              </div>
             </div>
-          </div>
-          <Nav />
+            <Nav />
+          </SiteChrome>
           <main className='flex-1'>{children}</main>
-          <Footer />
+          <SiteChrome>
+            <Footer />
+          </SiteChrome>
           <CartDrawer />
         </CartProvider>
         <Analytics />
