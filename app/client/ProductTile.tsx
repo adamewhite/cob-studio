@@ -1,8 +1,8 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import { FadeImage } from './FadeImage';
 
 export type TileImage = { src: string; alt: string };
 
@@ -44,7 +44,7 @@ export function ProductTile({
             side ? 'w-full' : 'w-14'
           } ${i === active ? 'opacity-100' : 'opacity-45 hover:opacity-80'}`}
         >
-          <Image
+          <FadeImage
             src={img.src}
             alt=''
             fill
@@ -66,7 +66,7 @@ export function ProductTile({
           href={href}
           className='relative block aspect-[4/5] min-w-0 flex-1 bg-white'
         >
-          <Image
+          <FadeImage
             key={main.src}
             src={main.src}
             alt={main.alt}

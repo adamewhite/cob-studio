@@ -9,6 +9,7 @@ import {
   type Artwork,
 } from '../lib/artwork';
 import { withLiveSold } from '../lib/sold';
+import { FadeImage } from './FadeImage';
 import { ProductTile, type TileImage } from './ProductTile';
 
 // Layout mockup for the client: a brief, scrapbook-style landing page.
@@ -160,7 +161,7 @@ export default async function ClientLanding() {
               thumbs={t.thumbs}
             />
           ) : (
-            <Image
+            <FadeImage
               key={t.pick.name}
               src={accents[t.pick.name].src}
               alt={accents[t.pick.name].alt}
@@ -175,7 +176,7 @@ export default async function ClientLanding() {
       </div>
 
       <footer className='mt-12 text-center'>
-        congress of beauty · cob-studio.com
+        congress of beauty · congressofbeauty.com
       </footer>
     </div>
   );
