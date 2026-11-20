@@ -15,6 +15,7 @@ export function ProductTile({
   images,
   width,
   thumbs,
+  alignSelf,
 }: {
   href: string;
   title: string;
@@ -24,6 +25,7 @@ export function ProductTile({
   images: TileImage[];
   width: number;
   thumbs: 'under' | 'side';
+  alignSelf?: 'start' | 'center' | 'end';
 }) {
   const [active, setActive] = useState(0);
   const main = images[active];
@@ -59,7 +61,7 @@ export function ProductTile({
   return (
     <figure
       className='m-0 max-w-full'
-      style={{ width: side ? width + 66 : width }}
+      style={{ width: side ? width + 66 : width, alignSelf }}
     >
       <div className={side ? 'flex gap-2.5' : 'flex flex-col gap-2.5'}>
         <Link
