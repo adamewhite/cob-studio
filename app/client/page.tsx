@@ -52,7 +52,7 @@ export default async function ClientLanding() {
             className='h-32 w-auto transition-opacity duration-150 group-hover:opacity-0 sm:h-36'
           />
           <Image
-            src='/images/logo-with-text-inverted.svg'
+            src='/images/logo-with-text-inverted-green.svg'
             alt=''
             aria-hidden
             width={608}

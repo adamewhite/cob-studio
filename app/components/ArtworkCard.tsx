@@ -2,7 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { Artwork, formatPrice, getThumbnail } from "../lib/artwork";
 
-export function ArtworkCard({ artwork }: { artwork: Artwork }) {
+export function ArtworkCard({
+  artwork,
+  sizes = "(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw",
+}: {
+  artwork: Artwork;
+  // Match the grid the card sits in so the browser fetches the right size.
+  sizes?: string;
+}) {
   const cover = getThumbnail(artwork);
   const href = `/artwork/${artwork.category}/${artwork.slug}`;
 
@@ -14,7 +21,7 @@ export function ArtworkCard({ artwork }: { artwork: Artwork }) {
             src={cover.src}
             alt={cover.alt}
             fill
-            sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+            sizes={sizes}
             className="object-cover transition-opacity group-hover:opacity-90"
           />
         ) : (

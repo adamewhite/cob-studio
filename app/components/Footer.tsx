@@ -21,7 +21,7 @@ export function Footer() {
               className='h-[7.2rem] w-auto transition-opacity duration-150 group-hover:opacity-0'
             />
             <Image
-              src='/images/logo-with-text-inverted.svg'
+              src='/images/logo-with-text-inverted-green.svg'
               alt=''
               aria-hidden
               width={608}

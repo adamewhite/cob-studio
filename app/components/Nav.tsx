@@ -75,7 +75,7 @@ export function Nav() {
               className='h-24 w-auto transition-opacity duration-150 group-hover:opacity-0 sm:h-[7.2rem]'
             />
             <Image
-              src='/images/logo-with-text-inverted.svg'
+              src='/images/logo-with-text-inverted-green.svg'
               alt=''
               aria-hidden
               width={608}

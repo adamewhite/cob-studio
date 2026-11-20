@@ -1,6 +1,6 @@
 import { accents, type AccentName } from '../lib/accents';
 import { formatPrice, getThumbnail, type Artwork } from '../lib/artwork';
-import { FadeImage } from './FadeImage';
+import { FadeImage } from '../components/FadeImage';
 import { ProductTile, type TileImage } from './ProductTile';
 
 // The Brief-style image wall shared by /client and /test: images sit at

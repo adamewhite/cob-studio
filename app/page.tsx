@@ -1,14 +1,10 @@
-import Image from "next/image";
 import Link from "next/link";
 import { AccentCarousel } from "./components/AccentCarousel";
 import { ArtworkCard } from "./components/ArtworkCard";
+import { Feature } from "./components/FeatureSplit";
 import { HeroVideo } from "./components/HeroVideo";
-import {
-  artworks,
-  categories,
-  getArtworksByCategory,
-  getThumbnail,
-} from "./lib/artwork";
+import { accents } from "./lib/accents";
+import { artworks, seriesList, type Category } from "./lib/artwork";
 import { withLiveSold } from "./lib/sold";
 
 // Sold pieces come from Stripe; the sale webhook refreshes pages right away,
@@ -16,16 +12,15 @@ import { withLiveSold } from "./lib/sold";
 export const revalidate = 3600;
 
 export default async function Home() {
-  const newArrivals = await withLiveSold(artworks.slice(0, 4));
-  // One card per visible category. Columns follow the count so the row
-  // always spans the full width, e.g. while a category is hidden.
-  const collectionCount = categories.length;
-  const collectionCols =
-    collectionCount >= 3 ? "md:grid-cols-3" : "md:grid-cols-2";
-  const collectionSizes =
-    collectionCount >= 3
-      ? "(min-width: 768px) 33vw, 100vw"
-      : "(min-width: 768px) 50vw, 100vw";
+  const live = await withLiveSold(artworks);
+  const newArrivals = live.slice(0, 4);
+  // Two pieces per section that aren't already in New arrivals.
+  const featured = (category: Category) =>
+    live
+      .filter((a) => a.category === category && !newArrivals.includes(a))
+      .slice(0, 2);
+  const botanical = seriesList.find((s) => s.slug === "botanical");
+  const drawingSize = live.find((a) => a.category === "drawings")?.dimensions;
 
   return (
     <div>
@@ -71,6 +66,15 @@ export default async function Home() {
         </div>
       </section>
 
+      <Feature
+        eyebrow="One of one, framed and ready to hang"
+        title="Botanical Paintings"
+        body={botanical?.blurb ?? ""}
+        href="/artwork/series/botanical"
+        pieces={featured("paintings")}
+        large={accents.indianPipes}
+      />
+
       <section className="bg-accent">
         <div className="mx-auto max-w-7xl px-6 py-8 sm:py-12">
           <AccentCarousel
@@ -100,45 +104,17 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 pt-8 pb-12 sm:py-16">
-        <h2 className="mb-8 text-2xl font-medium tracking-tight">
-          Browse by collection
-        </h2>
-        <div className={`grid gap-6 ${collectionCols}`}>
-          {categories.map((c) => {
-              // The grid thumbnail is cropped with the piece centered, which
-              // holds up when the card crops it again to 3:2.
-              const first = getArtworksByCategory(c.slug)[0];
-              const cover = c.cover ?? (first && getThumbnail(first));
-              return (
-                <Link
-                  key={c.slug}
-                  href={`/artwork/${c.slug}`}
-                  className="group block"
-                >
-                  <div className="relative aspect-[3/2] w-full overflow-hidden bg-veil">
-                    {cover ? (
-                      <Image
-                        src={cover.src}
-                        alt={cover.alt}
-                        fill
-                        sizes={collectionSizes}
-                        style={{ objectPosition: cover.position }}
-                        className="object-cover transition-opacity group-hover:opacity-90"
-                      />
-                    ) : (
-                      <div className="h-full w-full bg-gradient-to-br from-veil-mid via-veil-deep to-veil-deepest transition-opacity group-hover:opacity-90" />
-                    )}
-                  </div>
-                  <div className="mt-3">
-                    <div className="text-base">{c.title}</div>
-                    <div className="text-sm text-ink/50">{c.blurb}</div>
-                  </div>
-                </Link>
-              );
-            })}
-        </div>
-      </section>
+      <Feature
+        flip
+        eyebrow="Graphite on paper"
+        title="Drawings"
+        body={`Original graphite drawings on paper${
+          drawingSize ? `, each ${drawingSize}` : ""
+        }.`}
+        href="/artwork/drawings"
+        pieces={featured("drawings")}
+        large={accents.boulder}
+      />
     </div>
   );
 }

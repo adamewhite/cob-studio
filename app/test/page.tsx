@@ -1,51 +1,31 @@
 import type { Metadata } from 'next';
 import { Source_Serif_4 } from 'next/font/google';
 import Link from 'next/link';
-import { FadeImage } from '../client/FadeImage';
-import { ImageWall, wallProducts, type WallSizing } from '../client/ImageWall';
+import { FadeImage } from '../components/FadeImage';
+import { Feature, PieceCard } from '../components/FeatureSplit';
+import { wallProducts } from '../client/ImageWall';
 import { HeroVideo } from '../components/HeroVideo';
 import {
   artworks,
   categories,
   getArtworksByCategory,
   getThumbnail,
+  seriesList,
+  type Artwork,
 } from '../lib/artwork';
 import { withLiveSold } from '../lib/sold';
+import { accents } from '../lib/accents';
 
 // Hybrid layout option: the site's home page (nav, hero video, collections,
-// footer) with the /client mockup's monospace captions, image wall, and
-// fade-in images.
+// footer) with the /client mockup's lowercase serif captions and fade-in
+// images. The area under the hero follows whatsupton.com: a New Arrivals
+// row, then split features that alternate sides.
 export const metadata: Metadata = {
   title: 'Layout option: hybrid',
   robots: { index: false, follow: false },
 };
 
 export const revalidate = 3600;
-
-// Four pieces, each paired with one large accent photo, sized so every
-// row fills the 1232px content width (side-thumbnail pieces are 66px
-// wider than listed). Narrower screens simply reflow.
-const newArrivalsSizing: WallSizing = {
-  productWidths: [600, 420, 540, 400],
-  accentWidths: [592, 600, 600, 640],
-  accentNames: ['shellCreekWide', 'reishi', 'mountainView', 'overlook'],
-  accentsAfter: () => 1,
-  // Rows alternate: piece then photo, then photo then piece.
-  accentsFirst: (i) => i % 2 === 1,
-  layoutClassName: 'justify-between gap-x-10 gap-y-20',
-  // Tile by tile in page order, so no row shares a single top edge: the
-  // shorter tile in each row drops to the bottom or middle.
-  tileAlign: [
-    'start',
-    'end',
-    'start',
-    'end',
-    'start',
-    'center',
-    'start',
-    'center',
-  ],
-};
 
 // Source Serif 4 is the current release of Source Serif Pro.
 const serif = Source_Serif_4({ subsets: ['latin'] });
@@ -55,7 +35,13 @@ const mono = 'text-[14px] leading-[20px] lowercase text-[#636363]';
 const monoStyle = { fontFamily: serif.style.fontFamily };
 
 export default async function TestHome() {
-  const products = wallProducts(await withLiveSold(artworks)).slice(0, 4);
+  const live = await withLiveSold(artworks);
+  const bySlug = (slug: string) => live.find((a) => a.slug === slug);
+  const pick = (...slugs: string[]) =>
+    slugs.map(bySlug).filter((a): a is Artwork => Boolean(a));
+  const newArrivals = wallProducts(live).slice(0, 4);
+  const botanical = seriesList.find((s) => s.slug === 'botanical');
+  const drawingSize = bySlug('drawing-no-3')?.dimensions;
   const collectionCols =
     categories.length >= 3 ? 'md:grid-cols-3' : 'md:grid-cols-2';
   const collectionSizes =
@@ -93,20 +79,41 @@ export default async function TestHome() {
         </div>
       </section>
 
-      <section className='mx-auto max-w-7xl px-6 py-16'>
-        <div
-          className={`mb-6 flex items-baseline justify-between ${mono}`}
-          style={monoStyle}
-        >
-          <h2 className='text-black'>new arrivals</h2>
-          <Link href='/artwork' className='text-black hover:underline'>
-            view all →
-          </Link>
-        </div>
-        <div className={mono} style={monoStyle}>
-          <ImageWall products={products} sizing={newArrivalsSizing} />
+      <section className='px-6 pt-16 pb-8 sm:px-8 sm:pt-20'>
+        <h2 className='mb-6 font-display text-2xl leading-[30px] tracking-[0.6px] text-[#1a1a1a]'>
+          New Arrivals
+        </h2>
+        <div className='grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4'>
+          {newArrivals.map((a) => (
+            <PieceCard
+              key={a.slug}
+              artwork={a}
+              sizes='(min-width: 768px) 25vw, 50vw'
+            />
+          ))}
         </div>
       </section>
+
+      <Feature
+        eyebrow='One of one, framed and ready to hang'
+        title='Botanical Paintings'
+        body={botanical?.blurb ?? ''}
+        href='/artwork/series/botanical'
+        pieces={pick('botanical-no-3', 'botanical-no-4')}
+        large={accents.indianPipes}
+      />
+
+      <Feature
+        flip
+        eyebrow='Graphite on paper'
+        title='Drawings'
+        body={`Original graphite drawings on paper${
+          drawingSize ? `, each ${drawingSize}` : ''
+        }.`}
+        href='/artwork/drawings'
+        pieces={pick('drawing-no-3', 'drawing-no-4')}
+        large={accents.boulder}
+      />
 
       <section className='mx-auto max-w-7xl px-6 pt-8 pb-12 sm:py-16'>
         <h2 className={`mb-6 text-black ${mono}`} style={monoStyle}>

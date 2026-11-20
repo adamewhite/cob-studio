@@ -1,17 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Accent } from "../../components/Accent";
 import { AccentStripe } from "../../components/AccentStripe";
 import { ArtworkCard } from "../../components/ArtworkCard";
 import { Category, categories, getArtworksByCategory } from "../../lib/artwork";
 import { withLiveSold } from "../../lib/sold";
-import { AccentName } from "../../lib/accents";
-
-const categoryAccents: Record<Category, AccentName> = {
-  paintings: "lichen",
-  drawings: "puffball",
-  sculpture: "polyporeLog",
-};
 
 // Sold pieces come from Stripe; the sale webhook refreshes pages right away,
 // and this catches anything it misses (refunds, a failed webhook).
@@ -47,7 +39,7 @@ export default async function CategoryPage({
 
   return (
     <div className="mx-auto max-w-7xl px-6 pb-16 pt-10 sm:pt-28">
-      <div className="mb-12 flex items-end justify-between gap-8">
+      <div className="mb-12">
         <div>
           <h1 className="text-3xl font-medium tracking-tight">{c.title}</h1>
           <p className="mt-3 max-w-xl text-ink/60">{c.blurb}</p>
@@ -73,16 +65,15 @@ export default async function CategoryPage({
             ))}
           </div>
         </div>
-        <Accent
-          name={categoryAccents[c.slug]}
-          className="hidden aspect-[5/4] w-44 shrink-0 sm:block"
-          sizes="176px"
-        />
       </div>
 
-      <div className="grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-3 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-3">
         {works.map((a) => (
-          <ArtworkCard key={a.slug} artwork={a} />
+          <ArtworkCard
+            key={a.slug}
+            artwork={a}
+            sizes="(min-width: 768px) 33vw, 50vw"
+          />
         ))}
       </div>
       <AccentStripe

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { FadeImage } from './FadeImage';
+import { FadeImage } from '../components/FadeImage';
 
 export type TileImage = { src: string; alt: string };
 
