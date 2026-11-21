@@ -28,10 +28,13 @@ export default async function Home() {
         <HeroVideo />
         <div className="absolute inset-x-0 bottom-0 top-0 flex items-center px-10 sm:top-[4.4rem] sm:px-10">
           <div className="mx-auto flex w-full max-w-7xl flex-col gap-4">
-            <div className="surface-panel max-w-md p-5 shadow-xl shadow-ink/10 sm:p-6">
-              <h1 className="max-w-md text-balance text-xl font-normal leading-snug tracking-tight text-ink/60 sm:text-2xl">
-                Paintings, drawings and sculpture made by hand in the mountains
-                of Maine.
+            {/* Balanced lines don't shrink their box, so the breaks are set
+                by hand on wider screens and the panel fits to them. */}
+            <div className="surface-panel max-w-md p-5 shadow-xl shadow-ink/10 sm:w-fit sm:p-6">
+              <h1 className="text-balance text-xl font-normal leading-snug tracking-tight text-ink/60 sm:text-2xl">
+                Paintings, drawings and <br className="hidden sm:block" />
+                sculpture made by hand in <br className="hidden sm:block" />
+                the mountains of Maine.
               </h1>
             </div>
             <div className="surface-panel flex max-w-md flex-col gap-3 p-5 shadow-xl shadow-ink/10 sm:flex-row sm:p-6">
