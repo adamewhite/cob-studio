@@ -41,7 +41,7 @@ const allCategories: {
   {
     slug: 'paintings',
     title: 'Paintings',
-    blurb: 'Original framed paintings from the Congress of Beauty studio.',
+    blurb: 'Original framed paintings.',
   },
   {
     slug: 'drawings',
